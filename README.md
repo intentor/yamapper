@@ -10,7 +10,7 @@ On the source code there are sample projects explaining the main features of *Ya
 
 Documentation can be found at [Yamapper on from tatooine](http://intentor.com.br/posts/categories/yamapper/) (Brazilian Portuguese only).
 
-The project is on C# 3.5 and 4.0 and most of the comments are in Brazilian Portuguese.
+The project is in C# 3.5 and 4.0 and most of the comments are in Brazilian Portuguese.
 
 *Yamapper* uses [Castle.Core](https://github.com/castleproject/Core) and [Intentor.Utilities](https://github.com/intentor/utilities).
 
