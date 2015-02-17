@@ -14,6 +14,8 @@ The project is on C# 3.5 and 4.0 and most of the comments are in Brazilian Portu
 
 *Yamapper* uses [Castle.Core](https://github.com/castleproject/Core) and [Intentor.Utilities](https://github.com/intentor/utilities).
 
+The releases, although not tied to a source code at this repository, contains binaries and documentations for each released version of the project.
+
 Currently the project is **DISCONTINUED**. However, feel free to fork it and continue its development!
 
 ## License
