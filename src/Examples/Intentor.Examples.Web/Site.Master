@@ -1,0 +1,29 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Intentor.Examples.Web.Site" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Intentor.Examples</title>
+    <style type="text/css">
+    
+        body                { padding: 0; margin: 0 }
+        div                 { margin: 10px }
+        ul                  { list-style-type: none; overflow: auto; margin: 0; padding: 0 }
+        li                  { float: left; margin: 10px }
+        table               { min-width: 400px }
+    
+    </style>
+</head>
+<body>
+    <form id="frmDefault" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <ul>
+            <li><a href="Default.aspx">Exemplos de GridViews</a></li>
+            <li><a href="Clientes.aspx">Exemplo formulário - Clientes</a></li>
+            <li><a href="Produtos.aspx">Exemplo formulário - Produtos</a></li>
+        </ul>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+    </form>
+</body>
+</html>

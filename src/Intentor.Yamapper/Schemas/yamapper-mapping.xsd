@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="yamapper-mapping"
+    targetNamespace="urn:yamapper-mapping-10.8.23.0"
+    xmlns="urn:yamapper-mapping-10.8.23.0"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    attributeFormDefault="unqualified"
+    elementFormDefault="qualified">
+
+  <xs:annotation>
+    <xs:documentation>
+      Schema para definição de arquivo de mapeamento de tabelas do componente Intentor.Yamapper.
+    </xs:documentation>
+  </xs:annotation>
+
+  <!-- Elementos -->
+
+  <xs:element name="yamapper-mapping">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="class" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="class">
+    <xs:annotation>
+      <xs:documentation>Representa o mapeamento de uma classe.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="property" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>Nome completo da classe e seu assembly (Ex.: Intentor.Core.Entities.NomeDaClasse, Intentor.Core).</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="table" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>Nome da tabela do banco de dados para a qual a classe será mapeada.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="useClassNameAsMemberName" type="xs:boolean" use="optional" default="false">
+        <xs:annotation>
+          <xs:documentation>Indica se se deve utilizar o nome da classe como nome da tabela na base de dados.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="isView" type="xs:boolean" use="optional" default="false">
+        <xs:annotation>
+          <xs:documentation>Indica se o mapeamento representa uma view.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="connectionName" type="xs:string" use="optional" default="">
+        <xs:annotation>
+          <xs:documentation>Nome da conexão ao banco de dados a qual esta classe está relacionada.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name='lazyLoading' type='xs:boolean' use='optional' default='false'>
+        <xs:annotation>
+          <xs:documentation>Indica se se deve realizar carregamento por demanda dos dados da entidade.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="property">
+    <xs:annotation>
+      <xs:documentation>Representa o mapeamento de uma propriedade de uma classe.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="name" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>Nome da propriedade.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="column" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>Nome do campo da tabela do banco de dados definida pela classe para a qual a propriedade será mapeada.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="usePropertyNameAsMemberName" type="xs:boolean" use="optional" default="false">
+        <xs:annotation>
+          <xs:documentation>Indica se se deve utilizar o nome da propriedade como nome do coluna na base de dados.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="isPrimaryKey" type="xs:boolean" use="optional" default="false">
+        <xs:annotation>
+          <xs:documentation>Indica se a coluna é primary key.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="isAutoKey" type="xs:boolean" use="optional" default="false">
+        <xs:annotation>
+          <xs:documentation>Indica se a coluna é de autonumeração.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="sequenceName" type="xs:string" use="optional" default="">
+        <xs:annotation>
+          <xs:documentation>Nome da sequence utilizada para população da chave primária da tabela.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="allowNull" type="xs:boolean" use="optional" default="true">
+        <xs:annotation>
+          <xs:documentation>Indica se a coluna permite valores nulos.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="ignoreOnInsert" type="xs:boolean" use="optional" default="false">
+        <xs:annotation>
+          <xs:documentation>Indica se a coluna deve ser ignorada quando da criação do registro.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="ignoreOnUpdate" type="xs:boolean" use="optional" default="false">
+        <xs:annotation>
+          <xs:documentation>Indica se a coluna deve ser ignorada quando da atualização do registro.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  
+</xs:schema>

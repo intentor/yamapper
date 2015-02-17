@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3B0092BF-F069-4D77-8ACC-99DCFB913F71}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Intentor.Yamapper</RootNamespace>
+    <AssemblyName>Intentor.Yamapper</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Intentor.Yamapper.xml</DocumentationFile>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Intentor.Yamapper.XML</DocumentationFile>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Castle.Core\dotNet35\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Intentor.Utilities, Version=11.2.10.1000, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Intentor.Utilities\dotNet35\Intentor.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attribute\ColumnAttribute.cs" />
+    <Compile Include="Attribute\DbMemberAttribute.cs" />
+    <Compile Include="Attribute\TableAttribute.cs" />
+    <Compile Include="Configuration\ConnectionInfo.cs" />
+    <Compile Include="Configuration\IYamapperConfigurationData.cs" />
+    <Compile Include="Configuration\YamapperConfigurationFile.cs" />
+    <Compile Include="Configuration\YamapperConfigurations.cs" />
+    <Compile Include="Configuration\YamapperConfigurationSection.cs" />
+    <Compile Include="DbProviderExtensions.cs" />
+    <Compile Include="Drivers\MySqlDriver.cs" />
+    <Compile Include="Drivers\PostgreSqlDriver.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Exceptions\DatabaseConnectionException.cs" />
+    <Compile Include="Exceptions\FileValidationException.cs" />
+    <Compile Include="Exceptions\PrimaryKeyNotFoundException.cs" />
+    <Compile Include="Expression\AndExpression.cs" />
+    <Compile Include="Expression\IExpression.cs" />
+    <Compile Include="Expression\OrExpression.cs" />
+    <Compile Include="Expression\Criteria.cs" />
+    <Compile Include="DbProvider.cs" />
+    <Compile Include="DbProviderFactory.cs" />
+    <Compile Include="DbProviderModule.cs" />
+    <Compile Include="Drivers\Core\DriverFactory.cs" />
+    <Compile Include="Drivers\Core\IDataBaseDriver.cs" />
+    <Compile Include="Drivers\Core\ReflexionBasedDriver.cs" />
+    <Compile Include="Drivers\OracleDriver.cs" />
+    <Compile Include="Drivers\SqlServerDriver.cs" />
+    <Compile Include="Exceptions\DataNotFoundException.cs" />
+    <Compile Include="Expression\Expression.cs" />
+    <Compile Include="Expression\LogicalExpression.cs" />
+    <Compile Include="Expression\Order.cs" />
+    <Compile Include="Expression\ParameterData.cs" />
+    <Compile Include="Expression\SimpleExpression.cs" />
+    <Compile Include="Expression\SqlExpression.cs" />
+    <Compile Include="ICommonDataBaseActions.cs" />
+    <Compile Include="IViewDataBaseActions.cs" />
+    <Compile Include="Mapper\BuildMappingFromAssembly.cs" />
+    <Compile Include="Mapper\BuildMappingFromFile.cs" />
+    <Compile Include="Mapper\DbMapperExtensions.cs" />
+    <Compile Include="Mapper\DbMapperHelper.cs" />
+    <Compile Include="Mapper\DbMapperParser.cs" />
+    <Compile Include="Mapper\DbMapperQueryBuilder.cs" />
+    <Compile Include="Mapper\FieldMapping.cs" />
+    <Compile Include="Mapper\IBuildMapping.cs" />
+    <Compile Include="Mapper\SqlSelectString.cs" />
+    <Compile Include="Mapper\TableMapping.cs" />
+    <Compile Include="Mapper\TableMappingCollection.cs" />
+    <Compile Include="Messages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proxy\PropertyInterceptor.cs" />
+    <Compile Include="Proxy\ProxyHelper.cs" />
+    <Compile Include="Security\MembershipUserInfo.cs" />
+    <Compile Include="Security\YamapperMembershipProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Messages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Schemas\yamapper-configuration.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Schemas\yamapper-mapping.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

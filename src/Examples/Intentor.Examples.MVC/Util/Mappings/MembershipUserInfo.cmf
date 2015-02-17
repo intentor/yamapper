@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<yamapper-mapping xmlns="urn:yamapper-mapping-10.8.23.0">
+	<class table="yamapper_Membership" name="Intentor.Yamapper.Security.MembershipUserInfo, Intentor.Yamapper">
+		<property name="UserId" column="UserId" isPrimaryKey="true" isAutoKey="true" />
+		<property name="Username" column="Username" />
+		<property name="Email" column="Email" />
+		<property name="Password" column="Password" />
+		<property name="PasswordFormat" column="PasswordFormat" />
+		<property name="PasswordQuestion" column="PasswordQuestion" allowNull="true" />
+		<property name="PasswordAnswer" column="PasswordAnswer" allowNull="true" />
+		<property name="FailedPasswordAttemptCount" column="FailedPasswordAttemptCount"  />
+		<property name="FailedPasswordAttemptWindowStart" column="FailedPasswordAttemptWindowStart" allowNull="true" />
+		<property name="FailedPasswordAnswerAttemptCount" column="FailedPasswordAnswerAttemptCount" />
+		<property name="FailedPasswordAnswerAttemptWindowStart" column="FailedPasswordAnswerAttemptWindowStart" allowNull="true" />
+		<property name="LastPasswordChangedDate" column="LastPasswordChangedDate" allowNull="true" />
+		<property name="IsApproved" column="IsApproved" />
+		<property name="IsLockedOut" column="IsLockedOut" />
+		<property name="CreationDate" column="CreationDate"/>
+		<property name="LastActivityDate" column="LastActivityDate" />
+		<property name="LastLockOutDate" column="LastLockOutDate" allowNull="true" />
+		<property name="LastLoginDate" column="LastLoginDate" allowNull="true" />
+		<property name="Comments" column="Comments" allowNull="true" />	
+	</class>
+</yamapper-mapping>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<yamapper-mapping xmlns="urn:yamapper-mapping-10.8.23.0">
+	<class table="tbClienteProduto" name="Intentor.Examples.Model.Core.Entities.ClienteProduto, Intentor.Examples.Model" connectionName="Yamapper" lazyLoading="true">
+		<property name="IdCliente" column="IdCliente" isPrimaryKey="true" />
+		<property name="IdProduto" column="IdProduto" isPrimaryKey="true" />	
+	</class>
+</yamapper-mapping>

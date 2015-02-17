@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="yamapper-configuration"
+    targetNamespace="urn:yamapper-configuration-10.4.1.0"
+    xmlns="urn:yamapper-configuration-10.4.1.0"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    attributeFormDefault="unqualified"
+    elementFormDefault="qualified">
+
+	<xs:annotation>
+		<xs:documentation>
+      Schema para definição de arquivo de configuração do componente Intentor.Yamapper.
+		</xs:documentation>
+	</xs:annotation>
+
+	<!-- Definição de tipos -->
+
+	<xs:simpleType name='provider'>
+    <xs:annotation>
+      <xs:documentation>Provedor de acesso ao banco de dados.</xs:documentation>
+    </xs:annotation>
+		<xs:restriction base='xs:string'>
+			<xs:enumeration value='Intentor.Yamapper.Drivers.MySqlDriver' />
+			<xs:enumeration value='Intentor.Yamapper.Drivers.OracleDriver' />
+			<xs:enumeration value='Intentor.Yamapper.Drivers.ODPNetDriver' />
+			<xs:enumeration value='Intentor.Yamapper.Drivers.PostgreSqlDriver' />
+			<xs:enumeration value='Intentor.Yamapper.Drivers.SqlServerDriver' />      
+    </xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="connection">
+    <xs:annotation>
+      <xs:documentation>Representa uma conexão de acesso ao banco de dados.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name='name' use='required'>
+      <xs:annotation>
+        <xs:documentation>Nome da conexão de acesso ao banco de dados.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+		<xs:attribute name='connectionString' use='required'>
+      <xs:annotation>
+        <xs:documentation>String de conexão de acesso ao banco de dados.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name='params' use='optional'>
+      <xs:annotation>
+        <xs:documentation>Parâmetros a serem passados ao provedor de acesso.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name='provider' use='required' type='provider'>
+      <xs:annotation>
+        <xs:documentation>Provedor de acesso ao banco de dados.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+	</xs:complexType>
+
+	<!-- Elementos -->
+	
+	<xs:element name='yamapper-configuration'>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref='yamapper' />
+				<xs:element ref='databaseConnections' />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name='yamapper'>
+    <xs:annotation>
+      <xs:documentation>Configurações básicas do mapeador.</xs:documentation>
+    </xs:annotation>
+		<xs:complexType>
+      <xs:attribute name='defaultConnection' type='xs:string' use='required'>
+        <xs:annotation>
+          <xs:documentation>Conexão padrão para acesso ao banco de dados.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+			<xs:attribute name='mappingAssembly' type='xs:string' use='optional' default=''>
+        <xs:annotation>
+          <xs:documentation>Assembly que contém as classes para mapeamento do banco de dados.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name='mappingsFolder' type='xs:string' use='optional' default=''>
+        <xs:annotation>
+          <xs:documentation>Endereço absoluto ou relativo do diretório que contém os mapeamentos (*.cmf - Class Mapping File).</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+			<xs:attribute name='useEncryptedConnectionString' type='xs:boolean' use='optional' default='false'>
+        <xs:annotation>
+          <xs:documentation>Indica se as strings de conexão estão criptografadas.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- Elemento para representação de conexões com o banco de dados. -->
+	<xs:element name="connection" type="connection" />
+
+	<!-- Configurações de conexões com bancos de dados. -->
+	<xs:element name='databaseConnections'>
+    <xs:annotation>
+      <xs:documentation>Configuração de conexões com o banco de dados.</xs:documentation>
+    </xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref='connection' minOccurs='1' maxOccurs='unbounded' />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+</xs:schema>

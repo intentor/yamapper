@@ -1,0 +1,1443 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Intentor.Utilities</name>
+    </assembly>
+    <members>
+        <member name="T:Intentor.Utilities.CryptoHelper">
+            <summary>
+            Métodos de apoio em criptografia.
+            </summary>
+        </member>
+        <member name="F:Intentor.Utilities.CryptoHelper.INTERNAL_KEY">
+            <summary>
+            Chave interna de criptografia.
+            </summary>
+        </member>
+        <member name="F:Intentor.Utilities.CryptoHelper.SALT">
+            <summary>
+            Valor utilizado para geração da criptografia juntamente da chave
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.CryptoHelper.GetAlgorithm(System.String)">
+            <summary>
+            Obtém o objeto que representa o algoritmo de criptografia utilizado.
+            </summary>
+            <param name="key">Chave de encriptação.</param>
+            <returns>Objeto para criptografia.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.CryptoHelper.GetIV">
+            <summary>
+            Obtém a chave IV para criptografia.
+            </summary>
+            <returns>Chave IV.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.CryptoHelper.Encrypt(System.String)">
+            <summary>
+            Criptografa um texto qualquer com base em um passphrase interno da Intentor.Utilities.
+            </summary>
+            <param name="plainText">Texto a ser criptografado.</param>
+            <returns>Texto criptografado.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.CryptoHelper.Encrypt(System.String,System.String)">
+            <summary>
+            Criptografa um texto qualquer com base em um passphrase.
+            </summary>
+            <param name="plainText">Texto a ser criptografado.</param>
+            <param name="key">Chave de encriptação.</param>
+            <returns>Texto criptografado.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.CryptoHelper.Decrypt(System.String)">
+            <summary>
+            Descriptografa uma string com base em um passphrase interno da Intentor.Utilities.
+            </summary>
+            <param name="cipherText">Texto a ser decriptografado</param>
+            <exception cref="T:System.Security.Cryptography.CryptographicException">Chave de encriptação inválida.</exception>
+            <returns>Texto descriptografado.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.CryptoHelper.Decrypt(System.String,System.String)">
+            <summary>
+            Descriptografa uma string com base em um passphrase.
+            </summary>
+            <param name="cipherText">Texto a ser decriptografado.</param>
+            <param name="key">Chave utilizada na encriptação.</param>
+            <exception cref="T:System.Security.Cryptography.CryptographicException">Chave de encriptação inválida.</exception>
+            <returns>Texto descriptografado.</returns>
+        </member>
+        <member name="T:Intentor.Utilities.FormatExtensions">
+            <summary>
+            Métodos diversos de formatação utilizados como extensão.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.FormatExtensions.ToLower(System.Object)">
+            <summary>
+            Coloca o conteúdo de todas as propriedades do tipo String de um objeto em minúsculo.
+            </summary>
+            <param name="obj">Objeto a ser analisado.</param>
+        </member>
+        <member name="M:Intentor.Utilities.FormatExtensions.ToUpper(System.Object)">
+            <summary>
+            Coloca o conteúdo de todas as propriedades do tipo String de um objeto em maiúsculo.
+            </summary>
+            <param name="obj">Objeto a ser analisado.</param>
+        </member>
+        <member name="T:Intentor.Utilities.PostVariables">
+            <summary>
+            Post variables collection.
+            </summary>
+        </member>
+        <member name="F:Intentor.Utilities.PostVariables._variables">
+            <summary>Post variables.</summary>
+        </member>
+        <member name="M:Intentor.Utilities.PostVariables.#ctor">
+            <summary>
+            Construtor.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Intentor.Utilities.PostVariables.#ctor(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:Intentor.Utilities.PostVariables.#ctor(System.String,System.Boolean)" -->
+        <member name="M:Intentor.Utilities.PostVariables.Add(System.String,System.Object)">
+            <summary>
+            Adds the specified key and value to the dictionary.
+            </summary>
+            <param name="key">Kay name.</param>
+            <param name="value">Key value.</param>
+        </member>
+        <member name="M:Intentor.Utilities.PostVariables.Add(System.String,System.Object,System.Nullable{System.Boolean})">
+            <summary>
+            Adds the specified key and value to the dictionary.
+            </summary>
+            <param name="key">Kay name.</param>
+            <param name="value">Key value.</param>
+            <param name="escape">Indicates if the value needs to be URL escaped.</param>
+        </member>
+        <member name="M:Intentor.Utilities.PostVariables.ToString">
+            <summary>
+            Gets the post data in a single string.
+            </summary>
+            <returns>Post data.</returns>
+        </member>
+        <member name="P:Intentor.Utilities.PostVariables.Variables">
+            <summary>
+            Post variables.
+            </summary>
+        </member>
+        <member name="P:Intentor.Utilities.PostVariables.Escape">
+            <summary>
+            Indicates if all the values should be URL escaped.
+            </summary>
+        </member>
+        <member name="T:Intentor.Utilities.AssemblyQualifiedTypeName">
+            <summary>
+            Representa um tipo em um assembly.
+            </summary>
+            <remarks>
+            Versão original em NHibernate-1.2.1.GA (parcialmente modificada).
+            </remarks>
+        </member>
+        <member name="F:Intentor.Utilities.AssemblyQualifiedTypeName._typeName">
+            <summary>
+            Nome do tipo.
+            </summary>
+        </member>
+        <member name="F:Intentor.Utilities.AssemblyQualifiedTypeName._assemblyName">
+            <summary>
+            Nome completo do assembly.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.AssemblyQualifiedTypeName.#ctor(System.String,System.String)">
+            <summary>
+            Construtor da classe.
+            </summary>
+            <param name="typeName">Nome do tipo.</param>
+            <param name="assemblyName">Nome completo do assembly.</param>
+        </member>
+        <member name="M:Intentor.Utilities.AssemblyQualifiedTypeName.Equals(System.Object)">
+            <summary>
+            Compara o nome do assembly com outro.
+            </summary>
+            <param name="obj">Objeto a ser comparado.</param>
+            <returns>Valor booleano indicando a igualdade.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.AssemblyQualifiedTypeName.GetHashCode">
+            <summary>
+            Obtém o HashCode.
+            </summary>
+            <returns>HashCode.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.AssemblyQualifiedTypeName.ToString">
+            <summary>
+            Converte o nome do assembly para string.
+            </summary>
+            <returns>Nome do asssembly.</returns>
+        </member>
+        <member name="P:Intentor.Utilities.AssemblyQualifiedTypeName.Type">
+            <summary>
+            Nome do tipo.
+            </summary>
+        </member>
+        <member name="P:Intentor.Utilities.AssemblyQualifiedTypeName.Assembly">
+            <summary>
+            Nome completo do assembly.
+            </summary>
+        </member>
+        <member name="T:Intentor.Utilities.AttributeSupport">
+            <summary>
+            Classe para apoio na utilização de atributos.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.AttributeSupport.CheckAttributeExistence(System.Object,System.Type)">
+            <summary>
+            Verifica se um determinado atributo existe em um objeto.
+            </summary>
+            <param name="obj">Objeto o qual se deseja verificar a existência do atributo.</param>
+            <param name="att">Atributo a ser verificado.</param>
+            <returns>Valor booleano indicando a existência do atributo.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.AttributeSupport.CheckAttributeExistence(System.Object,System.Type,System.Boolean)">
+            <summary>
+            Verifica se um determinado atributo existe em um objeto.
+            </summary>
+            <param name="obj">Objeto o qual se deseja verificar a existência do atributo.</param>
+            <param name="att">Atributo a ser verificado.</param>
+            <param name="useBaseType">Indica se se deve utilizar o tipo-base do objeto.</param>
+            <returns>Valor booleano indicando a existência do atributo.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.AttributeSupport.CheckAttributeExistence(System.Type,System.Type,System.Boolean)">
+            <summary>
+            Verifica se um determinado atributo existe em um objeto.
+            </summary>
+            <param name="obj">Tipo do objeto o qual se deseja verificar a existência do atributo.</param>
+            <param name="att">Atributo a ser verificado.</param>
+            <param name="useBaseType">Indica se se deve utilizar o tipo-base do objeto.</param>
+            <returns>Valor booleano indicando a existência do atributo.</returns>
+        </member>
+        <member name="T:Intentor.Utilities.Check">
+             <summary>
+             Realiza validação de contratos 
+             </summary>
+             <remarks>
+             O exemplo abaixo exemplifica o uso do método Require:
+             
+             <code>
+                 public void Test(int x)
+                 {
+             	        try
+             	        {
+            			        Check.Require(x > 1, "x deve ser maior que 1");
+            		        }
+            		        catch (System.Exception ex)
+            		        {
+            			        Console.WriteLine(ex.ToString());
+            		        }
+            	        }
+             </code>
+            
+             Pode-se realizar a saída também diretamente para um Trace listener. 
+             Pode-se, por exemplo inserir
+             
+             <code>
+                 Trace.Listeners.Clear();
+                 Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
+             </code>
+             
+             ou realizar-se saída diretamente para um arquivo ou log de eventos.
+             
+             (Nota: para clientes ASP.NET em Release somente o tratamento de exceções
+             é possível)
+             </remarks>
+        </member>
+        <member name="F:Intentor.Utilities.Check.useAssertions">
+            <summary>
+            Identifica se se deve utilizar exceções durante as validações. Por padrão é utilizado.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.Check.Require(System.Boolean)">
+            <summary>
+            Precondition check - obrigações contratuais antes da chamada a um método ou propriedade.
+            </summary>
+            <remarks>
+            Falha na checagem de pré-condições identifica problemas oriundos
+            do cliente, aquele que chama o procedimetno que executa a validação
+            de contrato.
+            </remarks>
+            <param name="assertion">Condição a ser avaliada.</param>
+        </member>
+        <member name="M:Intentor.Utilities.Check.Require(System.Boolean,System.String)">
+            <summary>
+            Precondition check - obrigações contratuais antes da chamada a
+            um método ou propriedade.
+            </summary>
+            <remarks>
+            Falha na checagem de pré-condições identifica problemas oriundos
+            do cliente, aquele que chama o procedimetno que executa a validação
+            de contrato.
+            </remarks>
+            <param name="assertion">Condição a ser avaliada.</param>
+            <param name="message">Mensagem a ser exibida caso o contrato não seja seguido.</param>
+        </member>
+        <member name="M:Intentor.Utilities.Check.Require(System.Boolean,System.String,System.Exception)">
+            <summary>
+            Precondition check - obrigações contratuais antes da chamada a
+            um método ou propriedade.
+            </summary>
+            <remarks>
+            Falha na checagem de pré-condições identifica problemas oriundos
+            do cliente, aquele que chama o procedimetno que executa a validação
+            de contrato.
+            </remarks>
+            <param name="assertion">Condição a ser avaliada.</param>
+            <param name="message">Mensagem a ser exibida caso o contrato não seja seguido.</param>
+            <param name="inner">Exceção relacionada.</param>
+        </member>
+        <member name="M:Intentor.Utilities.Check.Ensure(System.Boolean)">
+            <summary>
+            Postcondition check. - garante que obrigações contratuais
+            foram cumpridas após execução de procedimentos.
+            </summary>
+            <remarks>
+            Falha na checagem de pós-condições pode identificar um problema (bug)
+            na rotina que solicitou tal validação contratual.
+            </remarks>
+            <param name="assertion">Condição a ser avaliada.</param>
+        </member>
+        <member name="M:Intentor.Utilities.Check.Ensure(System.Boolean,System.String)">
+            <summary>
+            Postcondition check. - garante que obrigações contratuais
+            foram cumpridas após execução de procedimentos.
+            </summary>
+            <remarks>
+            Falha na checagem de pós-condições pode identificar um problema (bug)
+            na rotina que solicitou tal validação contratual.
+            </remarks>
+            <param name="assertion">Condição a ser avaliada.</param>
+            <param name="message">Mensagem a ser exibida caso o contrato não seja seguido.</param>
+        </member>
+        <member name="M:Intentor.Utilities.Check.Ensure(System.Boolean,System.String,System.Exception)">
+            <summary>
+            Postcondition check. - garante que obrigações contratuais
+            foram cumpridas após execução de procedimentos.
+            </summary>
+            <remarks>
+            Falha na checagem de pós-condições pode identificar um problema (bug)
+            na rotina que solicitou tal validação contratual.
+            </remarks>
+            <param name="assertion">Condição a ser avaliada.</param>
+            <param name="message">Mensagem a ser exibida caso o contrato não seja seguido.</param>
+            <param name="inner">Exceção relacionada.</param>
+        </member>
+        <member name="M:Intentor.Utilities.Check.Invariant(System.Boolean)">
+            <summary>
+            Invariant check - cláusula geral que se aplica a um conjunto de
+            contratos definidos em uma classe.
+            </summary>
+            <param name="assertion">Condição a ser avaliada.</param>
+        </member>
+        <member name="M:Intentor.Utilities.Check.Invariant(System.Boolean,System.String)">
+            <summary>
+            Invariant check - cláusula geral que se aplica a um conjunto de
+            contratos definidos em uma classe.
+            </summary>
+            <param name="assertion">Condição a ser avaliada.</param>
+            <param name="message">Mensagem a ser exibida caso o contrato não seja seguido.</param>
+        </member>
+        <member name="M:Intentor.Utilities.Check.Invariant(System.Boolean,System.String,System.Exception)">
+            <summary>
+            Invariant check - cláusula geral que se aplica a um conjunto de
+            contratos definidos em uma classe.
+            </summary>
+            <param name="assertion">Condição a ser avaliada.</param>
+            <param name="message">Mensagem a ser exibida caso o contrato não seja seguido.</param>
+            <param name="inner">Exceção relacionada.</param>
+        </member>
+        <member name="M:Intentor.Utilities.Check.Assert(System.Boolean)">
+            <summary>
+            Assertion check - avaliação de contratos genérico, sem uma
+            definição explícita.
+            </summary>
+            <param name="assertion">Condição a ser avaliada.</param>
+        </member>
+        <member name="M:Intentor.Utilities.Check.Assert(System.Boolean,System.String)">
+            <summary>
+            Assertion check - avaliação de contratos genérico, sem uma
+            definição explícita.
+            </summary>
+            <param name="assertion">Condição a ser avaliada.</param>
+            <param name="message">Mensagem a ser exibida caso o contrato não seja seguido.</param>
+        </member>
+        <member name="M:Intentor.Utilities.Check.Assert(System.Boolean,System.String,System.Exception)">
+            <summary>
+            Assertion check - avaliação de contratos genérico, sem uma
+            definição explícita.
+            </summary>
+            <param name="assertion">Condição a ser avaliada.</param>
+            <param name="message">Mensagem a ser exibida caso o contrato não seja seguido.</param>
+            <param name="inner">Exceção relacionada.</param>
+        </member>
+        <member name="P:Intentor.Utilities.Check.UseExceptions">
+            <summary>
+            Identifica se se deve utilizar exceções durante as validações. Por padrão é utilizado.
+            </summary>
+        </member>
+        <member name="P:Intentor.Utilities.Check.UseAssertions">
+            <summary>
+            Identifica se se deve utilizar trace asserts ao invés de exceções. Por padrão não é utilizado.
+            </summary>
+        </member>
+        <member name="T:Intentor.Utilities.DesignByContractException">
+            <summary>
+            Exceção disparada quando um contrato falha.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.DesignByContractException.#ctor">
+            <summary>
+            DesignByContract Exception.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.DesignByContractException.#ctor(System.String)">
+            <summary>
+            DesignByContract Exception.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.DesignByContractException.#ctor(System.String,System.Exception)">
+            <summary>
+            DesignByContract Exception.
+            </summary>
+        </member>
+        <member name="T:Intentor.Utilities.PreconditionException">
+            <summary>
+            Exceção disparada quando uma pré-condição falha.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.PreconditionException.#ctor">
+            <summary>
+            Precondition Exception.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.PreconditionException.#ctor(System.String)">
+            <summary>
+            Precondition Exception.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.PreconditionException.#ctor(System.String,System.Exception)">
+            <summary>
+            Precondition Exception.
+            </summary>
+        </member>
+        <member name="T:Intentor.Utilities.PostconditionException">
+            <summary>
+            Exceção disparada quando uma pós-condição falha.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.PostconditionException.#ctor">
+            <summary>
+            Postcondition Exception.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.PostconditionException.#ctor(System.String)">
+            <summary>
+            Postcondition Exception.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.PostconditionException.#ctor(System.String,System.Exception)">
+            <summary>
+            Postcondition Exception.
+            </summary>
+        </member>
+        <member name="T:Intentor.Utilities.InvariantException">
+            <summary>
+            Exceção disparada quando uma falha invariant ocorre.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.InvariantException.#ctor">
+            <summary>
+            Invariant Exception.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.InvariantException.#ctor(System.String)">
+            <summary>
+            Invariant Exception.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.InvariantException.#ctor(System.String,System.Exception)">
+            <summary>
+            Invariant Exception.
+            </summary>
+        </member>
+        <member name="T:Intentor.Utilities.AssertionException">
+            <summary>
+            Exceção disparada quando uma assertiva falha.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.AssertionException.#ctor">
+            <summary>
+            Assertion Exception.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.AssertionException.#ctor(System.String)">
+            <summary>
+            Assertion Exception.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.AssertionException.#ctor(System.String,System.Exception)">
+            <summary>
+            Assertion Exception.
+            </summary>
+        </member>
+        <member name="T:Intentor.Utilities.ClientHelper">
+            <summary>
+            Métodos de apoio na manipulação de conteúdo no cliente web (navegador).
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.ClientHelper.MessageBox(System.String)">
+            <summary>
+            Exibe caixa de mensagem no cliente.
+            </summary>
+            <param name="texto">Texto a ser exibido na caixa de mensagem.</param>
+        </member>
+        <member name="M:Intentor.Utilities.ClientHelper.MessageBoxOverAjax(System.String)">
+            <summary>
+            Exibe caixa de mensagem no cliente a partir de uma requisição AJAX realizada através do AJAX.Net.
+            </summary>
+            <param name="texto">Texto a ser exibido na caixa de mensagem.</param>
+        </member>
+        <member name="M:Intentor.Utilities.ClientHelper.RunStartupScript(System.String)">
+            <summary>
+            Executa códigos JavaScript na inicialização da página.
+            </summary>
+            <param name="script">Script a ser executado no cliente.</param>
+            <remarks>As tags script são adicionadas automaticamente.</remarks>
+        </member>
+        <member name="M:Intentor.Utilities.ClientHelper.RunStartupScriptOverAjax(System.String)">
+            <summary>
+            Executa códigos JavaScript no retorno de uma requisição AJAX realizada através do AJAX.Net.
+            </summary>
+            <param name="script">Script a ser executado no cliente.</param>
+            <remarks>As tags script são adicionadas automaticamente.</remarks>
+        </member>
+        <member name="T:Intentor.Utilities.AppConstants">
+            <summary>
+            Constantes de aplicação.
+            </summary>
+        </member>
+        <member name="F:Intentor.Utilities.AppConstants.AssemblyName">
+            <summary>
+            Nome do assembly do componente.
+            </summary>
+        </member>
+        <member name="P:Intentor.Utilities.AppConstants.BaseUrl">
+            <summary>
+            URL base da aplicação.
+            </summary>
+        </member>
+        <member name="P:Intentor.Utilities.AppConstants.BaseServerPath">
+            <summary>
+            Caminho da aplicação no servidor.
+            </summary>
+            <remarks>O endereço é retornado sem barra invertida no final.</remarks>
+        </member>
+        <member name="T:Intentor.Utilities.CultureHelper">
+            <summary>
+            Apoio na manipulação de cultura em aplicações web.
+            </summary>
+        </member>
+        <member name="F:Intentor.Utilities.CultureHelper._cookieName">
+            <summary>
+            Nome do cookie utilizado para definção de cultura da aplicação.
+            </summary>
+        </member>
+        <member name="F:Intentor.Utilities.CultureHelper.CulturePtBr">
+            <summary>
+            Definições de globalização para Português do Brasil (PT-BR).
+            </summary>
+        </member>
+        <member name="F:Intentor.Utilities.CultureHelper.CultureEnUs">
+            <summary>
+            Definições de globalização para Inglês dos EUA (EN-US).
+            </summary>
+        </member>
+        <member name="F:Intentor.Utilities.CultureHelper.Invariant">
+            <summary>
+            Definições de globalização para Inglês dos EUA (EN-US).
+            </summary>
+        </member>
+        <member name="F:Intentor.Utilities.CultureHelper.EncodingIso88591">
+            <summary>
+            Conjunto de caracteres de idiomas latinos, compatível com Português do Brasil (iso-8859-1).
+            </summary>
+        </member>
+        <member name="F:Intentor.Utilities.CultureHelper.EncodingUtf8">
+            <summary>
+            Conjunto de caracteres do Inglês (utf-8).
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.CultureHelper.GetInfoFromCookie">
+            <summary>
+            Obtém informações de cultura do cookie.
+            </summary>
+            <returns>Objeto <see cref="T:Intentor.Utilities.CultureHelper.CultureData"/>.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.CultureHelper.SaveCulture(System.String,System.String)">
+            <summary>
+            Salva configurações de localização da aplicação para uso durante o acesso à aplicação.
+            </summary>
+            <param name="culture">Idioma da cultura base.</param>
+            <param name="uiCulture">Idioma da interface.</param>
+            <remarks>A página não é reinicializada ao executar-se tal método.</remarks>
+        </member>
+        <member name="M:Intentor.Utilities.CultureHelper.SaveCulture(System.String,System.String,System.Boolean)">
+            <summary>
+            Salva configurações de localização da aplicação para uso durante o acesso à aplicação.
+            </summary>
+            <param name="culture">Idioma da cultura base.</param>
+            <param name="uiCulture">Idioma da interface.</param>
+            <param name="restartPage">Identifica se a página deve ser reinicializada.</param>
+        </member>
+        <member name="M:Intentor.Utilities.CultureHelper.SetCulture(Intentor.Utilities.CultureHelper.CultureData)">
+            <summary>
+            Configura a aplicação para suporte a um dado idioma.
+            </summary>
+            <param name="cultureToSet">Dados da cultura a ser definida.</param>
+        </member>
+        <member name="M:Intentor.Utilities.CultureHelper.SetCulture(System.String,System.String)">
+            <summary>
+            Configura a aplicação para suporte a um dado idioma.
+            </summary>
+            <param name="culture">Idioma da cultura base.</param>
+            <param name="uiCulture">Idioma da interface.</param>
+        </member>
+        <member name="T:Intentor.Utilities.CultureHelper.CultureData">
+            <summary>
+            Indentifica dados de cultura da aplicação.
+            </summary>
+        </member>
+        <member name="P:Intentor.Utilities.CultureHelper.CultureData.Culture">
+            <summary>
+            Idioma da cultura base.
+            </summary>
+        </member>
+        <member name="P:Intentor.Utilities.CultureHelper.CultureData.UICulture">
+            <summary>
+            Idioma da interface.
+            </summary>
+        </member>
+        <member name="T:Intentor.Utilities.FormatHelper">
+            <summary>
+            Métodos diversos para formatação de dados.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.FormatHelper.Cpf(System.String)">
+            <summary>
+            Realiza formatação de CPF.
+            </summary>
+            <param name="cpf">String contendo o CPF a ser formatado.</param>
+            <remarks>O CPF informado deve possuir 11 caracteres.</remarks>
+            <returns>CPF formatado.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.FormatHelper.Cnpj(System.String)">
+            <summary>
+            Realiza formatação de CNPJ.
+            </summary>
+            <param name="cnpj">String contendo o CNPJ a ser formatado.</param>
+            <remarks>O CNPJ informado deve possuir 14 caracteres.</remarks>
+            <returns>CNPJ formatado.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.FormatHelper.CpfCnpj(System.String)">
+            <summary>
+            Realiza formatação de CPF/CNPJ.
+            </summary>
+            <param name="cpfCnpj">String contendo o CPF/CNPJ a ser formatado.</param>
+            <remarks>O CPF informado deve possuir 11 caracteres e o CNPJ deve possuir 14 caracteres.
+            </remarks><returns>CPF/CNPJ formatado.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.FormatHelper.Cep(System.String)">
+            <summary>
+            Realiza formatação de CEP.
+            </summary>
+            <param name="cep">String contendo o CEP a ser formatado.</param>
+            <returns>CEP formatado.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.FormatHelper.Telephone(System.String)">
+            <summary>
+            Realiza formatação do Número do Telefone.
+            </summary>
+            <param name="tel">String contendo o Número do Telefone a ser formatado.</param>
+            <remarks>O número de telefone deve possuir 10 números (DDD + telefone) e será retornado no formato (##) ####-####.</remarks>
+            <returns>Número do Telefone formatado.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.FormatHelper.ChangeCasing(System.Object,System.Boolean)">
+            <summary>
+            Troca o casing de todas as propriedades de um objeto.
+            </summary>
+            <param name="obj">Objeto a ser analisado.</param>
+            <param name="toLower">Indicação de colocação em maiúscula ou minúscula.</param>
+        </member>
+        <member name="M:Intentor.Utilities.FormatHelper.GetNumbers(System.String)">
+            <summary>
+            Obtém apenas os números que compõem uma string.
+            </summary>
+            <param name="s">String contendo os números a serem extraídos.</param>
+            <returns>Números que compõem uma string.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.FormatHelper.ReplaceAccents(System.String)">
+            <summary>
+            Substitui caracteres com acento por sua versão sem sinal em uma string.
+            </summary>
+            <param name="s">String a ser avaliada.</param>
+            <returns>String formatada.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.FormatHelper.ReplaceSpecialChars(System.String)">
+            <summary>
+            Substitui caracteres especiais e com acento por sua versão similar em uma string.
+            </summary>
+            <param name="s">String a ser avaliada.</param>
+            <returns>String formatada.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.FormatHelper.FormatForUrl(System.String)">
+            <summary>
+            Formata uma string para uso em URL.
+            </summary>
+            <param name="s">String a ser avaliada.</param>
+            <returns>String formatada.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.FormatHelper.FillStringWithZeros(System.String,System.Int32)">
+            <summary>
+            Preenche uma string com zeros (0) à esquerda até que o tamanho máximo definido seja atingido.
+            </summary>
+            <param name="s">String base.</param>
+            <param name="size">Tamanho máximo da string.</param>
+            <returns>String com zeros à esquerda caso esta não possua o tamanho máximo definido.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.FormatHelper.FillStringWithSpaces(System.String,System.Int32)">
+            <summary>
+            Preenche uma string com espaços vazios à direita até que o tamanho máximo definido seja atingido.
+            </summary>
+            <param name="s">String base.</param>
+            <param name="size">Tamanho máximo da string.</param>
+            <returns>String com espaços à direita.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.FormatHelper.FillStringWithSpaces(System.String,System.Int32,System.Boolean)">
+            <summary>
+            Preenche uma string com espaços vazios até que o tamanho máximo definido seja atingido.
+            </summary>
+            <param name="s">String base.</param>
+            <param name="size">Tamanho máximo da string. </param>
+            <param name="insertOnLeft">Identifica se os espaços devem ser inseridos à direita da string. Sendo <see langword="false"/>, os espaços serão inseridos à esquerda.</param>
+            <returns>String com espaços.</returns>
+        </member>
+        <member name="T:Intentor.Utilities.ReflectionHelper">
+            <summary>
+            Apoio na execução de atividades de Reflection.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.ReflectionHelper.CreateInstance(System.String,System.String)">
+            <summary>
+            Cria instância para um tipo a partir de seu nome.
+            </summary>
+            <param name="typeName">Nome do tipo a ser instanciado.</param>
+            <param name="assemblyName">Nome do assembly.</param>
+            <param name="args">Vetor e objetos que coincidem em número, ordem e tipo os parâmetros do construtor da classe a ser criada.</param>
+            <returns>Objeto instanciado.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ReflectionHelper.CreateInstance(System.String,System.String,System.Object[])">
+            <summary>
+            Cria instância para um tipo a partir de seu nome.
+            </summary>
+            <param name="typeName">Nome do tipo a ser instanciado.</param>
+            <param name="assemblyName">Nome do assembly.</param>
+            <param name="args">Vetor e objetos que coincidem em número, ordem e tipo os parâmetros do construtor da classe a ser criada.</param>
+            <returns>Objeto instanciado.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ReflectionHelper.CopyPropertyValue(System.Object,System.Object)">
+            <summary>
+            Realiza cópia de valores de propriedades entre dois objetos.
+            </summary>
+            <param name="source">Objeto fonte das propriedades.</param>
+            <param name="target">Objeto para o qual os valores das propriedades serão copiados.</param>
+            <remarks>Ambos os objetos devem possuir propriedades de mesmo nome.</remarks>
+        </member>
+        <member name="M:Intentor.Utilities.ReflectionHelper.GetPropertyValue(System.Object,System.String)">
+            <summary>
+            Obtém o valor de uma propriedade de um objeto.
+            </summary>
+            <param name="obj">Objeto a ter o valor de uma propriedade obtida.</param>
+            <param name="propertyName">Nome da propriedade a ser obtida.</param>
+            <returns>Valor da propriedade ou <see langword="null"/> caso nenhum valor seja encontrado.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ReflectionHelper.SetPropertyValue(System.Object,System.String,System.Object)">
+            <summary>
+            Alterada o valor de uma propriedade de um objeto.
+            </summary>
+            <param name="obj">Objeto a ter o valor de uma propriedade alterada.</param>
+            <param name="propertyName">Nome da propriedade a ter seu valor alterado.</param>
+            <param name="propertyValue">Valor a ser inserido na propriedade.</param>
+        </member>
+        <member name="M:Intentor.Utilities.ReflectionHelper.GetTypeFromAssembly(System.String,System.String)">
+            <summary>
+            Obtém um objeto <see cref="T:System.Type"/> de um assembly já carregado ou, caso não esteja carregado, carrega-o para posterior obtenção do tipo.
+            </summary>
+            <param name="typeName">Nome do tipo.</param>
+            <param name="assemblyName">Nome completo do assembly.</param>
+            <remarks>Versão original em NHibernate-1.2.1.GA (parcialmente modificada).</remarks>
+            <returns>Objeto <see cref="T:System.Type"/>.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ReflectionHelper.GetTypeFromAssembly(Intentor.Utilities.AssemblyQualifiedTypeName)">
+            <summary>
+            Obtém um objeto <see cref="T:System.Type"/> de um assembly já carregado ou, caso não esteja carregado, carrega-o para posterior obtenção do tipo.
+            </summary>
+            <param name="name">Objeto <see cref="T:Intentor.Utilities.AssemblyQualifiedTypeName"/> que representa o nome do assembly.</param>
+            <remarks>Versão original em NHibernate-1.2.1.GA (parcialmente modificada).</remarks>
+            <returns>Objeto <see cref="T:System.Type"/>.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ReflectionHelper.GetTypeFromAssembly(Intentor.Utilities.AssemblyQualifiedTypeName,System.Boolean)">
+            <summary>
+            Obtém um objeto <see cref="T:System.Type"/> de um assembly já carregado ou, caso não esteja carregado, carrega-o para posterior obtenção do tipo.
+            </summary>
+            <param name="name">Objeto <see cref="T:Intentor.Utilities.AssemblyQualifiedTypeName"/> que representa o nome do assembly.</param>
+            <param name="throwOnError">Identifica se uma exceção deve ser gerado caso o tipo não seja encontrado.</param>
+            <remarks>Versão original em NHibernate-1.2.1.GA (parcialmente modificada).</remarks>
+            <returns>Objeto <see cref="T:System.Type"/>.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ReflectionHelper.GetTypesInNamespace(System.Reflection.Assembly,System.String)">
+            <summary>
+            Obtém todos os tipos de um determinado namespace de um determinado assembly.
+            </summary>
+            <param name="assembly">Assembly do qual os dados serão obtidos.</param>
+            <param name="namespaceToSearch">Namespace do qual os dados serão obtidos.</param>
+            <returns>Tipos encontrados.</returns>
+        </member>
+        <member name="T:Intentor.Utilities.ServerHelper">
+            <summary>
+            Métodos de apoio no ambiente servidor.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.ServerHelper.ResponseStream(System.Web.HttpContext,System.IO.Stream,System.String)">
+            <summary>
+            Realiza a escrita de uma stream na resposta da requisição HTTP atual.
+            </summary>
+            <param name="context">Contexto HTTP no qual se deve escrever a stream.</param>
+            <param name="streamToResponse">Objeto <see cref="T:System.IO.Stream"/> a ser escrito.</param>
+            <param name="contentType">Identifica qual o tipo conteúdo a ser escrito.</param>
+            <remarks>A resposta sempre é finalizada após a escrita da stream.</remarks>
+        </member>
+        <member name="M:Intentor.Utilities.ServerHelper.ResponseStream(System.Web.HttpContext,System.IO.Stream,System.String,System.Boolean)">
+            <summary>
+            Realiza a escrita de uma stream na resposta da requisição HTTP atual.
+            </summary>
+            <param name="context">Contexto HTTP no qual se deve escrever a stream.</param>
+            <param name="streamToResponse">Objeto <see cref="T:System.IO.Stream"/> a ser escrito.</param>
+            <param name="contentType">Identifica qual o tipo conteúdo a ser escrito.</param>
+            <param name="endResponse">Idenfifica se se deve finalizar a resposta logo após a escrita do conteúdo.</param>
+        </member>
+        <member name="M:Intentor.Utilities.ServerHelper.InsertInCache(System.Web.HttpContext,System.String,System.Object)">
+            <summary>
+            Insere um objeto no cache de um contexto HTTP.
+            </summary>
+            <param name="context">Contexto HTTP no qual o objeto será inserido em cache.</param>
+            <param name="cacheId">Id do cache.</param>
+            <param name="objectToInsert">Objeto a ser inserido em cache.</param>
+            <remarks>Por padrão, a duração do objeto no cache é de 1 minuto.</remarks>
+        </member>
+        <member name="M:Intentor.Utilities.ServerHelper.InsertInCache(System.Web.HttpContext,System.String,System.Object,System.Int16)">
+            <summary>
+            Insere um objeto no cache de um contexto HTTP.
+            </summary>
+            <param name="context">Contexto HTTP no qual o objeto será inserido em cache.</param>
+            <param name="cacheId">Id do cache.</param>
+            <param name="objectToInsert">Objeto a ser inserido em cache.</param>
+            <param name="minutesToExpiration">Identifica o o período, em minutos, no qual o objeto deve ser mantido em cache.</param>
+        </member>
+        <member name="T:Intentor.Utilities.SmtpHelper">
+            <summary>
+            Contém métodos para acesso a e-mails.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.SmtpHelper.SendMail(System.String,System.String,System.String,System.String)">
+            <summary>
+            Realiza envio de e-mail.
+            </summary>
+            <param name="from">Remetente do e-mail.</param>
+            <param name="to">Destinatário do e-mail.</param>
+            <param name="subject">Assunto do e-mail.</param>
+            <param name="message">Mensagem do e-mail.</param>
+            <remarks>O host utilizado será aquele presente no web.config.</remarks>
+        </member>
+        <member name="M:Intentor.Utilities.SmtpHelper.SendMail(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Realiza envio de e-mail.
+            </summary>
+            <param name="from">Remetente do e-mail.</param>
+            <param name="to">Destinatário do e-mail.</param>
+            <param name="subject">Assunto do e-mail.</param>
+            <param name="message">Mensagem do e-mail.</param>
+            <param name="host">Endreço do servidor de e-mails.</param>
+        </member>
+        <member name="M:Intentor.Utilities.SmtpHelper.SendMail(System.String,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String,System.String,System.Boolean,System.Collections.Generic.List{System.Net.Mail.Attachment},System.String,System.Net.ICredentialsByHost)">
+            <summary>
+            Realiza envio de e-mail.
+            </summary>
+            <param name="from">Remetente do e-mail.</param>
+            <param name="to">Lista de destinatários do e-mail.</param>
+            <param name="cc">Lista de destinatários que receberão cópia do e-mail.</param>
+            <param name="cco">Lista de destinatários que receberão cópia oculta do e-mail.</param>
+            <param name="subject">Assunto do e-mail.</param>
+            <param name="message">Mensagem do e-mail.</param>
+            <param name="isBodyHtml">Indica se o corpo do e-mail é em formato HTML.</param>
+            <param name="attachments">Anexos ao e-mail.</param>
+            <param name="host">Endreço do servidor de e-mails.</param>
+            <param name="credentials">Credenciais de acesso ao servidor de e-mail.</param>
+            <remarks>Caso nenhum host seja definido, serão utilizadas as configurações presentes no web.config.</remarks>
+        </member>
+        <member name="T:Intentor.Utilities.ValidationHelper">
+             <summary>
+            Métodos diversos de validação.
+             </summary>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationHelper.IsNullOrDbNull(System.Object)">
+            <summary>
+            Verifica se um determinado objeto é nulo.
+            </summary>
+            <param name="obj">Objeto a ser verificado.</param>
+            <returns>Valor booleano indicando se o objeto é nulo.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationHelper.IsNumber(System.Object)">
+            <summary>
+            Verifica se um determinado objeto é do tipo numérico.
+            </summary>
+            <param name="obj">Objeto a ser verificado.</param>
+            <returns>Valor booleano indicando se o objeto é um número.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationHelper.IsDate(System.String)">
+            <summary>
+            Realiza a validação de uma string avaliando se seu formato é de uma data.
+            </summary>
+            <param name="date">String a ser validada.</param>
+            <returns>Valor booleano indicando se a string é uma data.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationHelper.IsDate(System.String,System.IFormatProvider)">
+            <summary>
+            Realiza a validação de uma string avaliando se seu formato é de uma data.
+            </summary>
+            <param name="date">String a ser validada.</param>
+            <param name="formatProvider">Provedor que define o formato de data a ser utilizado.</param>
+            <returns>Valor booleano indicando se a string é uma data.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationHelper.HasNumbers(System.String)">
+            <summary>
+            Verifica se uma string possui dígitos.
+            </summary>
+            <param name="s">String a ser validada.</param>
+            <returns>Valor booleano indicando se a string possui números.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationHelper.IsCpf(System.String)">
+            <summary>
+            Realiza validação de um número de CPF.
+            </summary>
+            <param name="cpf">Número do CPF, informado apenas com seus dígitos.</param>
+            <returns>Valro booleano indicando se o CPF é válido.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationHelper.IsCnpj(System.String)">
+            <summary>
+            Realiza validação de um número de CNPJ.
+            </summary>
+            <param name="cnpj">Número do CNPJ, informado apenas com seus dígitos.</param>
+            <returns>Valro booleano indicando se o CNPJ é válido.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationHelper.IsCpfOrCnpj(System.String)">
+            <summary>
+            Realiza validação de um número de CPF/CNPJ.
+            </summary>
+            <param name="cpfCnpj">Número do CPF ou CNPJ, informado apenas com seus dígitos.</param>
+            <returns>Valro booleano indicando se o CNPJ é válido.</returns>
+        </member>
+        <member name="T:Intentor.Utilities.ValidationExtensions">
+            <summary>
+            Métodos diversos de validação utilizados como extensão.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationExtensions.IsNullOrDbNull(System.Object)">
+            <summary>
+            Verifica se um determinado objeto é nulo.
+            </summary>
+            <param name="obj">Objeto a ser verificado.</param>
+            <returns>Valor booleano indicando se o objeto é nulo.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationExtensions.IsNullOrEmpty(System.String)">
+            <summary>
+            Verifica se um determinado objeto é do tipo numérico.
+            </summary>
+            <param name="obj">Objeto a ser verificado.</param>
+            <returns>Valor booleano indicando se o objeto é um número.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationExtensions.IsNumber(System.Object)">
+            <summary>
+            Verifica se um determinado objeto é do tipo numérico.
+            </summary>
+            <param name="obj">Objeto a ser verificado.</param>
+            <returns>Valor booleano indicando se o objeto é nulo.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationExtensions.IsDate(System.String)">
+            <summary>
+            Realiza a validação de uma string avaliando se seu formato é de uma data.
+            </summary>
+            <param name="obj">String a ser validada.</param>
+            <returns>Valor booleano indicando se a string é uma data.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationExtensions.IsDate(System.String,System.IFormatProvider)">
+            <summary>
+            Realiza a validação de uma string avaliando se seu formato é de uma data.
+            </summary>
+            <param name="obj">String a ser validada.</param>
+            <param name="formatProvider">Provedor que define o formato de data a ser utilizado.</param>
+            <returns>Valor booleano indicando se a string é uma data.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationExtensions.HasNumbers(System.String)">
+            <summary>
+            Verifica se uma string possui dígitos.
+            </summary>
+            <param name="obj">String a ser validada.</param>
+            <returns>Valor booleano indicando se a string possui números.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationExtensions.IsCpf(System.String)">
+            <summary>
+            Realiza validação de um número de CPF.
+            </summary>
+            <param name="obj">Número do CPF, informado apenas com seus dígitos.</param>
+            <returns>Valro booleano indicando se o CPF é válido.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationExtensions.IsCnpj(System.String)">
+            <summary>
+            Realiza validação de um número de CNPJ.
+            </summary>
+            <param name="obj">Número do CNPJ, informado apenas com seus dígitos.</param>
+            <returns>Valro booleano indicando se o CNPJ é válido.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationExtensions.IsCpfOrCnpj(System.String)">
+            <summary>
+            Realiza validação de um número de CPF/CNPJ.
+            </summary>
+            <param name="obj">Número do CPF ou CNPJ, informado apenas com seus dígitos.</param>
+            <returns>Valro booleano indicando se o CNPJ é válido.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationExtensions.GetValueOrDbNull``1(System.Nullable{``0})">
+            <summary>
+            Obtém o valor de um objeto Nullable ou <see cref="F:System.DBNull.Value"/> caso o objeto seja nulo.
+            </summary>
+            <typeparam name="T">Tipo do objeto a ser verificado.</typeparam>
+            <param name="obj">Objeto a ser verificado.</param>
+            <returns>Objeto contendo ou o valor do objeto ou <see cref="F:System.DBNull.Value"/>.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationExtensions.GetValueOrNull(System.String)">
+            <summary>
+            Obtém uma string ou <see cref="!:null"/> caso esta esteja vazia.
+            </summary>
+            <typeparam name="T">Tipo do objeto a ser verificado.</typeparam>
+            <param name="str">String a ser verificado.</param>
+            <returns>Objeto contendo ou o valor da string ou <see cref="!:null"/>.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationExtensions.GetValueOrDbNull(System.String)">
+            <summary>
+            Obtém o valor de uma string ou <see cref="F:System.DBNull.Value"/> caso a string seja vazia ou nula.
+            </summary>
+            <param name="str">String a ser verificada.</param>
+            <returns>Objeto contendo ou o valor da string ou <see cref="F:System.DBNull.Value"/>.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationExtensions.GetNullableObjectFor``1(System.String)">
+            <summary>
+            Obtém o valor de uma string convertido para um tipo específico ou <see langword="null"/> caso a string esteja vazia.
+            </summary>
+            <typeparam name="T">Tipo para ser convertido.</typeparam>
+            <param name="source">String a ser convertida.</param>
+            <returns>Objeto contendo ou o valor da string ou <see langword="null"/>.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationExtensions.Parse``1(System.Object)">
+            <summary>
+            Realiza conversão de uma string para o tipo <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">Tipo a ser convertida a string.</typeparam>
+            <param name="source">String fonte para conversão.</param>
+            <returns>Objeto <typeparamref name="T"/>.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.ValidationExtensions.Parse``1(System.Object,System.IFormatProvider)">
+            <summary>
+            Realiza conversão de um objeto para o tipo <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">Tipo a ser convertido o objeto.</typeparam>
+            <param name="source">Objeto fonte para conversão.</param>
+            <param name="provider">Provedor de formatação.</param>
+            <returns>Objeto <typeparamref name="T"/>.</returns>
+        </member>
+        <member name="T:Intentor.Utilities.WebAccessHelper">
+            <summary>
+            Métodos para acesso a páginas web externas.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.WebAccessHelper.GetAsByte(System.String)">
+            <summary>
+            Obtém o conteúdo de uma determinada URL como array de bytes.
+            </summary>
+            <param name="url">URL a ser acessada.</param>
+            <returns>Conteúdo da URL como array de bytes.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.WebAccessHelper.GetAsStream(System.String)">
+            <summary>
+            Obtém o conteúdo de uma determinada URL como <see cref="T:System.IO.Stream"/>.
+            </summary>
+            <param name="url">URL a ser acessada.</param>
+            <returns>Conteúdo da URL como <see cref="T:System.IO.Stream"/>.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.WebAccessHelper.Get(System.String)">
+            <summary>
+            Obtém o conteúdo de uma determinada URL como texto.
+            </summary>
+            <param name="url">URL a ser acessada.</param>
+            <returns>Conteúdo da URL em formato texto.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.WebAccessHelper.Get(System.String,System.Text.Encoding)">
+            <summary>
+            Obtém o conteúdo de uma determinada URL como texto.
+            </summary>
+            <param name="url">URL a ser acessada.</param>
+            <param name="encoding">Encoding do conteúdo.</param>
+            <returns>Conteúdo da URL em formato texto.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.WebAccessHelper.Post(System.String,Intentor.Utilities.PostVariables)">
+            <summary>
+            Realiza uma requisição POST a uma URL.
+            </summary>
+            <param name="url">URL da página a ser acessada.</param>
+            <param name="postData">Parâmetros da requisição.</param>
+            <remarks>Serão utilizados 10 segundos como valor padrão de timeout.</remarks>
+            <returns>String contendo o retorno do POST realizado.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.WebAccessHelper.Post(System.String,Intentor.Utilities.PostVariables,System.Int32)">
+            <summary>
+            Realiza uma requisição POST a uma URL.
+            </summary>
+            <param name="url">URL da página a ser acessada.</param>
+            <param name="postData">Parâmetros da requisição.</param>
+            <param name="timeOut">Valor máximo, dado em milissegundos, o qual a resposta a uma requisição será aguardada.</param>
+            <returns>String contendo o retorno do POST realizado.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.WebAccessHelper.Post(System.String,Intentor.Utilities.PostVariables,System.Text.Encoding)">
+            <summary>
+            Realiza uma requisição POST a uma URL.
+            </summary>
+            <param name="url">URL da página a ser acessada.</param>
+            <param name="postData">Parâmetros da requisição.</param>
+            <param name="encoding">Codificação do conteúdo recebido.</param>
+            <remarks>Serão utilizados 10 segundos como valor padrão de timeout.</remarks>
+            <returns>String contendo o retorno do POST realizado.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.WebAccessHelper.Post(System.String,Intentor.Utilities.PostVariables,System.String)">
+            <summary>
+            Realiza uma requisição POST a uma URL.
+            </summary>
+            <param name="url">URL da página a ser acessada.</param>
+            <param name="postData">Parâmetros da requisição.</param>
+            <param name="contentType">ContentType a ser utilizado no post.</param>
+            <remarks>Serão utilizados 10 segundos como valor padrão de timeout.</remarks>
+            <returns>String contendo o retorno do POST realizado.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.WebAccessHelper.Post(System.String,Intentor.Utilities.PostVariables,System.Int32,System.String)">
+            <summary>
+            Realiza uma requisição POST a uma URL.
+            </summary>
+            <param name="url">URL da página a ser acessada.</param>
+            <param name="postData">Parâmetros da requisição.</param>
+            <param name="timeOut">Valor máximo, dado em milissegundos, o qual a resposta a uma requisição será aguardada.</param>
+            <param name="contentType">ContentType a ser utilizado no post.</param>
+            <returns>String contendo o retorno do POST realizado.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.WebAccessHelper.Post(System.String,Intentor.Utilities.PostVariables,System.Int32,System.String,System.Text.Encoding)">
+            <summary>
+            Realiza uma requisição POST a uma URL.
+            </summary>
+            <param name="url">URL da página a ser acessada.</param>
+            <param name="postData">Parâmetros da requisição.</param>
+            <param name="timeOut">Valor máximo, dado em milissegundos, o qual a resposta a uma requisição será aguardada.</param>
+            <param name="contentType">ContentType a ser utilizado no post.</param>
+            <param name="encoding">Codificação do conteúdo recebido.</param>
+            <returns>String contendo o retorno do POST realizado.</returns>
+        </member>
+        <member name="M:Intentor.Utilities.WebAccessHelper.GetResponse(System.Net.HttpWebRequest,System.Text.Encoding)">
+            <summary>
+            Obtém uma resposta HTTP.
+            </summary>
+            <param name="request">Objeto de requisição.</param>
+            <param name="encoding">Codificação do conteúdo recebido.</param>
+            <returns>Resposta da requisição, em formato string.</returns>
+        </member>
+        <member name="T:Intentor.Utilities.WebControlsExtensions">
+            <summary>
+            Métodos para apoio na utilização de webcontrols utilizados como extensão.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsExtensions.Fill(System.Web.UI.WebControls.ListControl,System.Data.DataTable,System.String,System.String)">
+            <summary>
+            Preenche um ListControl com dados oriundos de um <see cref="T:System.Data.DataTable"/>, inserindo um item vazio.
+            </summary>
+            <param name="obj">Controle a ser preenchido.</param>
+            <param name="dt">Objeto com os dados a serem inseridos.</param>
+            <param name="textField">Nome do campo de <paramref name="dt"/> que contém o texto dos itens.</param>
+            <param name="valueField">Nome do campo de <paramref name="dt"/> que contém o valor dos itens.</param>
+            <remarks>O conteúdo do controle sempre é limpo antes da inserção dos novos itens.</remarks>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsExtensions.Fill(System.Web.UI.WebControls.ListControl,System.Data.DataTable,System.String,System.String,System.Boolean)">
+            <summary>
+            Preenche um ListControl com dados oriundos de um <see cref="T:System.Data.DataTable"/>.
+            </summary>
+            <param name="obj">Controle a ser preenchido.</param>
+            <param name="dt">Objeto com os dados a serem inseridos.</param>
+            <param name="textField">Nome do campo de <paramref name="dt"/> que contém o texto dos itens.</param>
+            <param name="valueField">Nome do campo de <paramref name="dt"/> que contém o valor dos itens.</param>
+            <param name="insertEmptyItem">Insere um item vazio com texto "---" e valor nulo.</param>
+            <remarks>O conteúdo do controle sempre é limpo antes da inserção dos novos itens.</remarks>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsExtensions.Fill(System.Web.UI.WebControls.ListControl,System.Data.DataTable,System.String,System.String,System.String,System.String)">
+            <summary>
+            Preenche um ListControl com dados oriundos de um <see cref="T:System.Data.DataTable"/>.
+            </summary>
+            <param name="obj">Controle a ser preenchido.</param>
+            <param name="dt">Objeto com os dados a serem inseridos.</param>
+            <param name="textField">Nome do campo de <paramref name="dt"/> que contém o texto dos itens.</param>
+            <param name="valueField">Nome do campo de <paramref name="dt"/> que contém o valor dos itens.</param>
+            <param name="emptyItemText">Texto para o campo vazio, o qual é sempre incluído antes dos items de <paramref name="list"/>.</param>
+            <param name="emptyItemValue">Valor do campo vazio.</param>
+            <remarks>O conteúdo do controle sempre é limpo antes da inserção dos novos itens.</remarks>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsExtensions.Fill``1(System.Web.UI.WebControls.ListControl,System.Collections.Generic.List{``0},System.String,System.String)">
+            <summary>
+            Preenche um ListControl com dados oriundos de uma lista de objetos do tipo <typeparamref name="T"/>, inserindo um item vazio.
+            </summary>
+            <typeparam name="T">Tipo do objeto da lista.</typeparam>
+            <param name="obj">Controle a ser preenchido.</param>
+            <param name="list">Lista de objetos do tipo <typeparamref name="T"/>.</param>
+            <param name="textProperty">Nome da propriedade dos objetos em <paramref name="list"/> que contém contém o texto dos itens.</param>
+            <param name="valueProperty">Nome da propriedade dos objetos em <paramref name="list"/> que contém o valor dos itens.</param>
+            <remarks> O conteúdo do controle sempre é limpo antes da inserção dos novos itens.</remarks>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsExtensions.Fill``1(System.Web.UI.WebControls.ListControl,System.Collections.Generic.List{``0},System.String,System.String,System.Boolean)">
+            <summary>
+            Preenche um ListControl com dados oriundos de uma lista de objetos do tipo <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">Tipo do objeto da lista.</typeparam>
+            <param name="obj">Controle a ser preenchido.</param>
+            <param name="list">Lista de objetos do tipo <typeparamref name="T"/>.</param>
+            <param name="textProperty">Nome da propriedade dos objetos em <paramref name="list"/> que contém contém o texto dos itens.</param>
+            <param name="valueProperty">Nome da propriedade dos objetos em <paramref name="list"/> que contém o valor dos itens.</param>
+            <param name="insertEmptyItem">Insere um item vazio com texto "---" e valor nulo.</param>
+            <remarks> O conteúdo do controle sempre é limpo antes da inserção dos novos itens.</remarks>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsExtensions.Fill``1(System.Web.UI.WebControls.ListControl,System.Collections.Generic.List{``0},System.String,System.String,System.String,System.String)">
+            <summary>
+            Preenche um ListControl com dados oriundos de uma lista de objetos do tipo <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">Tipo do objeto da lista.</typeparam>
+            <param name="obj">Controle a ser preenchido.</param>
+            <param name="list">Lista de objetos do tipo <typeparamref name="T"/>.</param>
+            <param name="textProperty">Nome da propriedade dos objetos em <paramref name="list"/> que contém contém o texto dos itens.</param>
+            <param name="valueProperty">Nome da propriedade dos objetos em <paramref name="list"/> que contém o valor dos itens.</param>
+            <param name="emptyItemText">Texto para o campo vazio, o qual é sempre incluído antes dos items de <paramref name="list"/>.</param>
+            <param name="emptyItemValue">Valor do campo vazio.</param>
+            <remarks> O conteúdo do controle sempre é limpo antes da inserção dos novos itens.</remarks>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsExtensions.SelectItemByText(System.Web.UI.WebControls.ListControl,System.String)">
+            <summary>
+            Seleciona um item de um ListControl com base com base em seu texto.
+            </summary>
+            <param name="obj">Controle a ter o item selecionado.</param>
+            <param name="text">Texto a ser pesquisado.</param>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsExtensions.SelectItemByValue(System.Web.UI.WebControls.ListControl,System.String)">
+            <summary>
+            Seleciona um item de um ListControl com base com base em seu valor.
+            </summary>
+            <param name="obj">Controle a ter o item selecionado.</param>
+            <param name="value">Valor a ser pesquisado.</param>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsExtensions.InsertEmptyItem(System.Web.UI.WebControls.ListControl)">
+            <summary>
+            Insere um item indicando valor vazio (text = "---" e value = "").
+            </summary>
+            <param name="obj">Controle a ser preenchido.</param>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsExtensions.PutControlsInReadOnlyState(System.Web.UI.Control)">
+            <summary>
+            Coloca controles de uma coleção em estado de somente leitura.
+            </summary>
+            <param name="control">Controle a ter seus controles avaliados.</param>
+            <remarks>
+            Controles analisados:
+            - TextBox;
+            - ListControl;
+            - CheckBox;
+            - RadioButton;
+            - Button;
+            - LinkButton.
+            </remarks>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsExtensions.ChangeControlsInReadOnlyState(System.Web.UI.Control)">
+            <summary>
+            Retira controles de uma coleção do estado de somente leitura.
+            </summary>
+            <param name="control">Controle a ter seus controles avaliados.</param>
+            <remarks>
+            Controles analisados:
+            - TextBox;
+            - ListControl;
+            - CheckBox;
+            - RadioButton;
+            - Button;
+            - LinkButton.
+            </remarks>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsExtensions.SetValidationGroup(System.Web.UI.UserControl,System.String)">
+            <summary>
+            Define um ValidationGroup para todos os validators presentes em um UserControl.
+            </summary>
+            <param name="control">Controle a ser avaliado.</param>
+            <param name="validationGroup">ValidationGroup a ser definido.</param>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsExtensions.EnableValidators(System.Web.UI.UserControl)">
+            <summary>
+            Habilita ou desabilita os validators presentes em uma coleção de controles.
+            </summary>
+            <param name="control">Controle a ser avaliado.</param>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsExtensions.EnableValidators(System.Web.UI.Page)">
+            <summary>
+            Habilita ou desabilita os validators presentes em uma coleção de controles.
+            </summary>
+            <param name="control">Controle a ser avaliado.</param>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsExtensions.EnableValidators(System.Web.UI.UserControl,System.Boolean)">
+            <summary>
+            Habilita ou desabilita os validators presentes em uma coleção de controles.
+            </summary>
+            <param name="control">Controle a ser avaliado.</param>
+            <param name="enable">Indica se se deve habilitar ou desabilitar os controles.</param>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsExtensions.EnableValidators(System.Web.UI.Page,System.Boolean)">
+            <summary>
+            Habilita ou desabilita os validators presentes em uma coleção de controles.
+            </summary>
+            <param name="control">Controle a ser avaliado.</param>
+            <param name="enable">Indica se se deve habilitar ou desabilitar os controles.</param>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsExtensions.EnableValidators(System.Web.UI.UserControl,System.Boolean,System.String)">
+            <summary>
+            Habilita ou desabilita os validators presentes em uma coleção de controles.
+            </summary>
+            <param name="control">Controle a ser avaliado.</param>
+            <param name="enable">Indica se se deve habilitar ou desabilitar os controles.</param>
+            <param name="validationGroup">ValidationGroup a ser definido.</param>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsExtensions.EnableValidators(System.Web.UI.Page,System.Boolean,System.String)">
+            <summary>
+            Habilita ou desabilita os validators presentes em uma coleção de controles.
+            </summary>
+            <param name="control">Controle a ser avaliado.</param>
+            <param name="enable">Indica se se deve habilitar ou desabilitar os controles.</param>
+            <param name="validationGroup">ValidationGroup a ser definido.</param>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsExtensions.EnableValidators(System.Web.UI.UserControl,System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Habilita ou desabilita os validators presentes em uma coleção de controles.
+            </summary>
+            <param name="control">Controle a ser avaliado.</param>
+            <param name="enable">Indica se se deve habilitar ou desabilitar os controles.</param>
+            <param name="validationGroup">ValidationGroup a ser definido.</param>
+            <param name="onlyOnEmptyValidationGroups">Somente aplica o ValidationGroup nos validators que não tiverem validators definidos.</param>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsExtensions.EnableValidators(System.Web.UI.Page,System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Habilita ou desabilita os validators presentes em uma coleção de controles.
+            </summary>
+            <param name="control">Controle a ser avaliado.</param>
+            <param name="enable">Indica se se deve habilitar ou desabilitar os controles.</param>
+            <param name="validationGroup">ValidationGroup a ser definido.</param>
+            <param name="onlyOnEmptyValidationGroups">Somente aplica o ValidationGroup nos validators que não tiverem validators definidos.</param>
+        </member>
+        <member name="T:Intentor.Utilities.WebControlsHelper">
+            <summary>
+            Métodos para apoio na utilização de webcontrols.
+            </summary>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsHelper.PutControlsInReadOnlyState(System.Web.UI.ControlCollection)">
+            <summary>
+            Coloca controles de uma coleção em estado de somente leitura.
+            </summary>
+            <param name="collection">Coleção de controles a ser avaliada.</param>
+            <remarks>
+            Controles analisados:
+            - TextBox;
+            - ListControl;
+            - CheckBox;
+            - RadioButton;
+            - Button;
+            - LinkButton.
+            </remarks>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsHelper.ChangeControlsInReadOnlyState(System.Web.UI.ControlCollection)">
+            <summary>
+            Retira controles de uma coleção do estado de somente leitura.
+            </summary>
+            <param name="collection">Coleção de controles a ser avaliada.</param>
+            <remarks>
+            Controles analisados:
+            - TextBox;
+            - ListControl;
+            - CheckBox;
+            - RadioButton;
+            - Button;
+            - LinkButton.
+            </remarks>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsHelper.SetValidationGroup(System.Web.UI.ControlCollection,System.String)">
+            <summary>
+            Define um ValidationGroup para todos os validators presentes em um controle.
+            </summary>
+            <param name="collection">Coleção de controles a ser avaliada.</param>
+            <param name="validationGroup">ValidationGroup a ser definido.</param>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsHelper.MoveListItems(System.Boolean,System.Web.UI.WebControls.ListBox,System.Web.UI.WebControls.ListBox)">
+            <summary>
+            Move itens selecionados de uma <see cref="T:System.Web.UI.WebControls.ListBox"/> para outra.
+            </summary>
+            <param name="isFromSource">Indica se a fonte da seleção é <paramref name="from"/>. Caso contrário, será <paramref name="to"/>.</param>
+            <param name="fromBase"></param>
+            <param name="toBase"></param>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsHelper.EnableValidators(System.Web.UI.ControlCollection)">
+            <summary>
+            Habilita ou desabilita os validators presentes em uma  coleção de controles.
+            </summary>
+            <param name="collection">Coleção de controles a ser avaliada.</param>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsHelper.EnableValidators(System.Web.UI.ControlCollection,System.Boolean)">
+            <summary>
+            Habilita ou desabilita os validators presentes em uma coleção de controles.
+            </summary>
+            <param name="collection">Coleção de controles a ser avaliada.</param>
+            <param name="enable">Indica se se deve habilitar ou desabilitar os controles.</param>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsHelper.EnableValidators(System.Web.UI.ControlCollection,System.Boolean,System.String)">
+            <summary>
+            Habilita ou desabilita os validators presentes em uma coleção de controles.
+            </summary>
+            <param name="collection">Coleção de controles a ser avaliada.</param>
+            <param name="enable">Indica se se deve habilitar ou desabilitar os controles.</param>
+            <param name="validationGroup">ValidationGroup a ser definido.</param>
+        </member>
+        <member name="M:Intentor.Utilities.WebControlsHelper.EnableValidators(System.Web.UI.ControlCollection,System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Habilita ou desabilita os validators presentes em uma coleção de controles.
+            </summary>
+            <param name="collection">Coleção de controles a ser avaliada.</param>
+            <param name="enable">Indica se se deve habilitar ou desabilitar os controles.</param>
+            <param name="validationGroup">ValidationGroup a ser definido.</param>
+            <param name="onlyOnEmptyValidationGroups"> Somente aplica o ValidationGroup nos validators que não tiverem validators definidos.</param>
+        </member>
+    </members>
+</doc>

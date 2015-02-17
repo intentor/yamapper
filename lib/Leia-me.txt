@@ -1,0 +1,7 @@
+DEPENDÊNCIAS DO PROJETO
+
+- Intentor.Utilities
+	http://intentor.com.br/projects/utilities/
+	
+- Castle Dynamic Proxy
+	http://www.castleproject.org/dynamicproxy/

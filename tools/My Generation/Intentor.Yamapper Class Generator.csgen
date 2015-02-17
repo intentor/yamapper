@@ -1,0 +1,2521 @@
+﻿##|TYPE Template
+##|UNIQUEID ebf85179-4b8b-4e9c-967c-a8cd54c6b802
+##|TITLE Intentor.Yamapper
+##|NAMESPACE Intentor.Yamapper
+##|SOURCE_TYPE Source
+##|OUTPUT_LANGUAGE C#
+##|COMMENTS_BEGIN
+Intentor Yet Another (.Net Based Database) Mapper
+##|COMMENTS_END
+##|GUI_ENGINE .Net Script
+##|GUI_LANGUAGE C#
+##|GUI_BEGIN
+<%#REFERENCE System.Windows.Forms.dll %>
+<%#NAMESPACE System, System.Text, System.Collections, Zeus, Zeus.UserInterface, Zeus.DotNetScript %>
+
+public class GeneratedGui : DotNetScriptGui
+{
+	public GeneratedGui(ZeusGuiContext context) : base(context) {}
+
+	public override void Setup()
+	{
+		if ( !input.Contains("chooseTables") || !input.Contains("txtPath") )
+		{
+			string outputMappings = "";
+			string outputWebForms = "";
+			string outputModel = "";
+			string connectionName = "";
+			string objectPrefix = "";
+			string mainPrefix = "Intentor";
+			string namespaceEntities = "Core.Entities";
+			string namespaceViews = "Core.Views";
+			string namespaceDataInterfaces = "Core.DataInterfaces";
+			string namespaceDao = "Data";
+			string namespaceBiz = "Domain";
+			string namespaceUserControls = "Web.UserControls";
+			bool insertNameSpaceViews = false;
+			bool generateWebForms = false;
+			bool generateDaoBase = false;
+			bool generateBizBase = false;
+			bool generateCustomObjects = false;
+			bool isInPascalCasing = false;
+			bool createExternalMapping = true;
+			
+			<%#FILE gen.config%>
+			
+			if (input.Contains("defaultOutputPath")) 
+			{
+				string sOutputPath = input["defaultOutputPath"].ToString();
+				if (sOutputPath.Length > 0 && sOutputPath[sOutputPath.Length - 1] != '\\') sOutputPath = sOutputPath + '\\';
+				if (outputMappings == "") outputMappings = sOutputPath + @"Yamapper\Mappings";
+				if (outputWebForms == "") outputWebForms = sOutputPath + @"Yamapper\WebForms";
+				if (outputModel == "") outputModel = sOutputPath + @"Yamapper\Model";
+			}	
+		
+			ui.Title = "Intentor.Yamapper Class Generator";
+			ui.Width = 840;
+			ui.Height = 600;	
+			ui.Top = 100;
+			ui.Left = 250;
+			
+			GuiLabel lblOutputPathMappings = ui.AddLabel("lblOutputPathMappings", "Diretório de mapeamentos:", "");
+			lblOutputPathMappings.Width = 370;
+			GuiTextBox txtOutputMappings = ui.AddTextBox("txtOutputMappings", outputMappings, "Diretório de exportação.");
+			txtOutputMappings.Width = 370;
+			GuiFilePicker selectPathMappings = ui.AddFilePicker("selectPathMappings", "Selecione o diretório", "Seleciona o diretório de exportação.", "txtOutputMappings", true);
+			selectPathMappings.Width = 120;
+			selectPathMappings.Top = txtOutputMappings.Top;
+			selectPathMappings.Left = 390;
+			
+			GuiLabel lblOutputPathWebForms = ui.AddLabel("lblOutputPathWebForms", "Diretório de Web Forms:", "");
+			lblOutputPathWebForms.Width = 370;
+			GuiTextBox txtOutputWebForms = ui.AddTextBox("txtOutputWebForms", outputWebForms, "Diretório de exportação.");
+			txtOutputWebForms.Width = 370;
+			GuiFilePicker selectPathWebForms = ui.AddFilePicker("selectPathWebForms", "Selecione o diretório", "Seleciona o diretório de exportação.", "txtOutputWebForms", true);
+			selectPathWebForms.Width = 120;
+			selectPathWebForms.Top = txtOutputWebForms.Top;
+			selectPathWebForms.Left = 390;
+			
+			GuiLabel lblOutputPathModel = ui.AddLabel("lblOutputPathModel", "Diretório das classes de modelo:", "");
+			lblOutputPathModel.Width = 370;
+			GuiTextBox txtOutputModel = ui.AddTextBox("txtOutputModel", outputModel, "Diretório de exportação.");
+			txtOutputModel.Width = 370;
+			GuiFilePicker selectPathModel = ui.AddFilePicker("selectPathModel", "Selecione o diretório", "Seleciona o diretório de exportação.", "txtOutputModel", true);
+			selectPathModel.Width = 120;
+			selectPathModel.Top = txtOutputModel.Top;
+			selectPathModel.Left = 390;
+			
+			GuiLabel lblConnectionName = ui.AddLabel ("lblConnectionName", "Nome da conexão (opcional): ", "");
+			lblConnectionName.Width = 235;
+			GuiTextBox txtConnectionName = ui.AddTextBox("txtConnectionName", connectionName, "Nome da conexão com o banco de dados.");
+			txtConnectionName.Width = 235;
+			
+            GuiLabel lblObjectPrefix = ui.AddLabel ("lblObjectPrefix", "Prefixo das classes (opcional): ", "");
+			lblObjectPrefix.Width = 235;
+			GuiTextBox txtObjectPrefix = ui.AddTextBox("txtObjectPrefix", objectPrefix, "Prefixo dos nomes das classes geradas a partir do banco de dados (tabelas e views).");
+            txtObjectPrefix.Width = 235;
+			
+			GuiLabel lblNamespaceUserControls = ui.AddLabel ("lblNamespaceUserControls", "Namespace User Controls: ", "");			
+			lblNamespaceUserControls.Width = 235;
+			GuiTextBox txtNamespaceUserControls = ui.AddTextBox("txtNamespaceUserControls", namespaceUserControls, "Namespace dos User Controls.");
+			txtNamespaceUserControls.Width = 235;	
+			
+			GuiLabel lblInfo = ui.AddLabel ("lblInfo", "ATENÇÃO\n\n- Ao gerar os objetos, quaisquer arquivos de mesmo nome no diretório de destino serão substituídos.\n\n- Custom Objects somente serão gerados caso não existam no local de destino.", "");
+			lblInfo.Width = 235;
+			lblInfo.Height = 130;
+			
+			GuiLabel lblMainPrefix = ui.AddLabel ("lblMainPrefix", "Prefixo dos namespaces da Model: ", "");
+			lblMainPrefix.Width = 235;
+			lblMainPrefix.Left = 275;
+			lblMainPrefix.Top = 189;
+			GuiTextBox txtMainPrefix = ui.AddTextBox("txtMainPrefix", mainPrefix, "Prefixo a ser anexado em todos os namespaces da Model.");
+            txtMainPrefix.Width = 235;
+			txtMainPrefix.Left = 275;
+			
+			GuiLabel lblNamespaceEntities = ui.AddLabel ("lblNamespaceEntities", "Namespace Entidades: ", "");
+			lblNamespaceEntities.Width = 235;
+			lblNamespaceEntities.Left = 275;
+			GuiTextBox txtNamespaceEntities = ui.AddTextBox("txtNamespaceEntities", namespaceEntities, "Namespace das Entidades.\nO nome do assembly contendo as entidades será formado\nutilizando-se do prefixo principal mais a palavra\"Core\".");
+			txtNamespaceEntities.Width = 235;
+			txtNamespaceEntities.Left = 275;
+			
+			GuiLabel lblNamespaceViews = ui.AddLabel ("lblNamespaceViews", "Namespace Views: ", "");
+			lblNamespaceViews.Width = 235;
+			lblNamespaceViews.Left = 275;
+			GuiTextBox txtNamespaceViews = ui.AddTextBox("txtNamespaceViews", namespaceViews, "Namespace das Views.");
+			txtNamespaceViews.Width = 235;
+			txtNamespaceViews.Left = 275;
+			
+			GuiLabel lblNamespaceDataInterfaces = ui.AddLabel ("lblNamespaceDataInterfaces", "Namespace Data Interfaces: ", "");
+			lblNamespaceDataInterfaces.Width = 235;
+			lblNamespaceDataInterfaces.Left = 275;
+			GuiTextBox txtNamespaceDataInterfaces = ui.AddTextBox("txtNamespaceDataInterfaces", namespaceDataInterfaces, "Namespace das Data Interfaces.");
+			txtNamespaceDataInterfaces.Width = 235;
+			txtNamespaceDataInterfaces.Left = 275;
+			
+			GuiLabel lblNamespaceDao = ui.AddLabel ("lblNamespaceDao", "Namespace Data Access Objects: ", "");			
+			lblNamespaceDao.Width = 235;
+			lblNamespaceDao.Left = 275;
+			GuiTextBox txtNamespaceDao = ui.AddTextBox("txtNamespaceDao", namespaceDao, "Namespace dos Data Access Objects.");
+			txtNamespaceDao.Width = 235;
+			txtNamespaceDao.Left = 275;
+			
+			GuiLabel lblNamespaceBiz = ui.AddLabel ("lblNamespaceBiz", "Namespace Business Objects: ", "");			
+			lblNamespaceBiz.Width = 235;
+			lblNamespaceBiz.Left = 275;
+			GuiTextBox txtNamespaceBiz = ui.AddTextBox("txtNamespaceBiz", namespaceBiz, "Namespace dos Business Objects.");
+			txtNamespaceBiz.Width = 235;
+			txtNamespaceBiz.Left = 275;
+			 
+			//Combobox de banco de dados.
+			GuiLabel lblBancoDados = ui.AddLabel("lblBancoDados", "Banco de dados:", "");
+			lblBancoDados.Width = 280;
+			lblBancoDados.Top = 10;
+			lblBancoDados.Left = 540;			
+			GuiComboBox chooseDatabase = ui.AddComboBox("chooseDatabase", "Bancos de dados disponíveis.");
+			chooseDatabase.Width = 280;
+			chooseDatabase.Left = 540;	
+				
+			//Listbox de tabelas.
+			GuiLabel lblTabelas = ui.AddLabel("lblTabelas", "Tabelas:", "");
+			lblTabelas.Width = 280;
+			lblTabelas.Left = 540;
+			GuiListBox chooseTables = ui.AddListBox("chooseTables", "Tabelas disponíveis no banco de dados selecionado.");
+			chooseTables.Height = 110;
+			chooseTables.Width = 280;
+			chooseTables.Left = 540;
+			
+			//Listbox de views.
+			GuiLabel lblViews = ui.AddLabel("lblViews", "Views:", "");
+			lblViews.Width = 280;
+			lblViews.Left = 540;
+			GuiListBox chooseViews = ui.AddListBox("chooseViews", "Views disponíveis no banco de dados selecionado.");
+			chooseViews.Height = 110;
+			chooseViews.Width = 280;
+			chooseViews.Left = 540;
+						
+			GuiCheckBox chkInsertNameSpaceViews = ui.AddCheckBox("chkInsertNameSpaceViews", "Inserir namespace Views", insertNameSpaceViews, "Indica se se deve inserir o namespace das Views nas classes geradas.");
+			chkInsertNameSpaceViews.Width = 280;
+			chkInsertNameSpaceViews.Left = 540;			
+			
+			GuiCheckBox chkGenerateWebForms = ui.AddCheckBox("chkGenerateWebForms", "Gerar WebForms", generateWebForms, "Indica se se deve gerar os WebForms.");
+			chkGenerateWebForms.Width = 280;
+			chkGenerateWebForms.Left = 540;
+			
+			GuiCheckBox chkGenerateDaoBase = ui.AddCheckBox("chkGenerateDaoBase", "Gerar DaoBase", generateDaoBase, "Indica se se deve gerar a DaoBase.");
+			chkGenerateDaoBase.Width = 280;
+			chkGenerateDaoBase.Left = 540;
+			
+			GuiCheckBox chkGenerateBizBase = ui.AddCheckBox("chkGenerateBizBase", "Gerar BizBase", generateBizBase, "Indica se se deve gerar a BizBase.");
+			chkGenerateBizBase.Width = 280;
+			chkGenerateBizBase.Left = 540;
+			
+			GuiCheckBox chkGenerateCustomObjects = ui.AddCheckBox("chkGenerateCustomObjects", "Gerar Custom Objects", generateCustomObjects, "Indica se se deve gerar interface e classes para customização de objetos.");
+			chkGenerateCustomObjects.Width = 280;
+			chkGenerateCustomObjects.Left = 540;
+			
+			GuiCheckBox chkIsInPascalCasing = ui.AddCheckBox("chkIsInPascalCasing", "Nomes de tabelas/campos já em PascalCasing", isInPascalCasing, "Indica se os nomes de tabelas e campos já estão em PascalCasing.");
+			chkIsInPascalCasing.Width = 280;	
+			chkIsInPascalCasing.Left = 540;		
+			
+			GuiCheckBox chkCreateExternalMapping = ui.AddCheckBox("chkCreateExternalMapping", "Mapeamento em arquivo externo", createExternalMapping, "Indica se se deve gerar arquivos de mapeamento externo.\nCaso não esteja selecionado, serão gerados atributos");
+			chkCreateExternalMapping.Width = 280;
+			chkCreateExternalMapping.Left = 540;
+	
+			//Anexa o evento onchange ao controle "chooseDatabase".
+			setupDatabaseDropdown(chooseDatabase);
+			chooseDatabase.AttachEvent("onchange", "chooseDatabase_onchange");
+	
+			ui.ShowGui = true;
+		}
+		else 
+		{
+			ui.ShowGui = false;
+		}
+	}
+	
+	public void setupDatabaseDropdown(GuiComboBox Databases)
+	{
+		try 
+		{	
+			if (MyMeta.IsConnected)
+			{
+				Databases.BindData(MyMeta.Databases);
+				if (MyMeta.DefaultDatabase != null) 
+				{
+					Databases.SelectedValue = MyMeta.DefaultDatabase.Alias;
+					bindTables(Databases.SelectedValue);
+					bindViews(Databases.SelectedValue);
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+		}
+	}
+	
+	public void bindTables(string sDatabase)
+	{
+		int count = 0;
+	
+		GuiListBox lstTables = ui["chooseTables"] as GuiListBox;
+		
+		try 
+		{	
+			IDatabase db = MyMeta.Databases[sDatabase];
+			lstTables.BindData(db.Tables);
+		}
+		catch (Exception ex)
+		{
+
+		}
+	}
+	
+	public void bindViews(string sDatabase)
+	{
+		int count = 0;
+	
+		GuiListBox lstViews = ui["chooseViews"] as GuiListBox;
+		
+		try 
+		{	
+			IDatabase db = MyMeta.Databases[sDatabase];
+			lstViews.BindData(db.Views);
+		}
+		catch (Exception ex)
+		{
+
+		}
+	}
+	
+	public void chooseDatabase_onchange(GuiComboBox control)
+	{
+		int count = 0;
+
+		GuiComboBox cmbDatabases = ui["chooseDatabase"] as GuiComboBox;
+	
+		bindTables(cmbDatabases.SelectedText);
+		bindViews(cmbDatabases.SelectedText);
+	}
+	
+}
+##|GUI_END
+##|BODY_MODE Markup
+##|BODY_ENGINE .Net Script
+##|BODY_LANGUAGE C#
+##|BODY_TAG_START <%
+##|BODY_TAG_END %>
+##|BODY_BEGIN
+<%#REFERENCE System.Web.dll%><%
+/*****************************************************
+Intentor.Yamapper Class Generator
+******************************************************
+Versão 12.6.11.2030
+Copyright © 2009-2012 André "Intentor" Martins
+http://intentor.com.br/projects/yamapper/
+
+Baseado em NHibernate Class Generator por Mike Griffin
+******************************************************
+*/
+
+using System.Collections.Generic;
+
+public class GeneratedTemplate : DotNetScriptTemplate
+{
+	private const string XmlConfigSchema = "urn:yamapper-mapping-10.8.23.0";
+	
+	private string _outputBuffer;
+	private ArrayList _selectedTables;
+	private ArrayList _selectedViews;
+	private string _dbName;
+	private string _tableName;
+	private string _viewName;
+	private string _exportPathMappings;
+	private string _exportPathWebForms;
+	private string _exportPathModel;
+	private string _mainPrefix;
+	private string _namespaceEntities;
+	private string _namespaceViews;	
+	private string _namespaceDataInterfaces;
+	private string _namespaceDao;
+	private string _namespaceBiz;
+	private string _namespaceUserControls;
+	private string _connectionName;
+	private string _objectPrefix;
+	private bool _generateWebForms;
+	private bool _generateDaoBase;
+	private bool _generateBizBase;
+	private bool _generateCustomObjects;
+	private bool _isInPascalCasing;
+	private bool _createExternalMapping;
+	private bool _insertNameSpaceViews;
+	
+	private string _nameAssemblyCore;
+	
+	public GeneratedTemplate(ZeusContext context) : base(context) {}
+
+	public override void Render()
+	{
+		//Obtém o prefixo principal para uso na definição dos namespaces.
+		_mainPrefix = input["txtMainPrefix"].ToString();
+	
+		_dbName = input["chooseDatabase"].ToString();
+		_selectedTables = input["chooseTables"] as ArrayList;
+		_selectedViews = input["chooseViews"] as ArrayList;
+		_exportPathMappings = input["txtOutputMappings"].ToString();
+		_exportPathWebForms = input["txtOutputWebForms"].ToString();
+		_exportPathModel = input["txtOutputModel"].ToString();
+		_namespaceEntities = _mainPrefix + "." + input["txtNamespaceEntities"].ToString();
+		_namespaceViews = _mainPrefix + "." + input["txtNamespaceViews"].ToString();
+		_namespaceDataInterfaces = _mainPrefix + "." + input["txtNamespaceDataInterfaces"].ToString();
+		_namespaceDao = _mainPrefix + "." + input["txtNamespaceDao"].ToString();
+		_namespaceBiz = _mainPrefix + "." + input["txtNamespaceBiz"].ToString();
+		_namespaceUserControls = input["txtNamespaceUserControls"].ToString();
+		_connectionName = input["txtConnectionName"].ToString();
+		_objectPrefix = input["txtObjectPrefix"].ToString();
+		_generateWebForms = (bool)input["chkGenerateWebForms"]; 
+		_generateDaoBase = (bool)input["chkGenerateDaoBase"];
+		_generateBizBase = (bool)input["chkGenerateBizBase"];
+		_generateCustomObjects = (bool)input["chkGenerateCustomObjects"];
+		_isInPascalCasing = (bool)input["chkIsInPascalCasing"];	
+		_createExternalMapping = (bool)input["chkCreateExternalMapping"];
+		_insertNameSpaceViews = (bool)input["chkInsertNameSpaceViews"];
+		
+		//Nomes de assemblies.
+		_nameAssemblyCore = _mainPrefix + ".Core";
+		
+		foreach(string _newTable in _selectedTables)
+		{		
+			ITable _workingTable = MyMeta.Databases[_dbName].Tables[_newTable];
+			_tableName = getTableName(_workingTable.Alias);
+			
+			_outputBuffer += "TABELA " + _workingTable.Alias + "\n";		
+			
+			//Gera a entidade.
+			generateEntity(_workingTable);
+			_outputBuffer += "\t- Entidade gerada.\n";
+			
+			if (_createExternalMapping) 
+			{
+				generateMapping(_workingTable);								
+				_outputBuffer += "\t- Arquivo de mapeamento da entidade gerado.\n";
+			}
+			
+			//Gera a DataInterface.
+			generateDataInterfaces(_workingTable);
+			_outputBuffer += "\t- DataInterface gerada.\n";
+			
+			//Gera o Data Access Objetc (Dao).
+			generateDao(_workingTable);
+			_outputBuffer += "\t- Data Access Object gerado.\n";	
+
+			//Gera o Business Object (Biz).
+			generateBiz(_workingTable);
+			_outputBuffer += "\t- Business Object gerado.\n";			
+				
+			//Gera o WebForm.
+			if (_generateWebForms && generateWebForm(_workingTable)) 
+			{
+				_outputBuffer += "\t- WebForm gerado.\n";
+			}
+			
+			if (_generateCustomObjects) 
+			{
+				generateCustomEntity(_workingTable);
+				generateCustomDataInterfaces(_workingTable);
+				generateCustomDao(_workingTable);
+				generateCustomBiz(_workingTable);
+			}
+			
+			_outputBuffer += "\n";
+		}
+		
+		if (_selectedViews.Count > 0)
+		{
+			foreach(string _newView in _selectedViews)
+			{		
+				IView _workingView = MyMeta.Databases[_dbName].Views[_newView];
+				_viewName = getViewName(_workingView.Alias);
+				
+				_outputBuffer += "VIEW " + _viewName + "\n";
+				
+				//Gera a view.
+				generateView(_workingView);
+				_outputBuffer += "\t- Entidade gerada.\n";
+					
+				if (_createExternalMapping) 
+				{
+					generateMapping(_workingView);								
+					_outputBuffer += "\t- Arquivo de mapeamento da view gerado.\n";
+				}
+			
+				//Gera a DataInterface.
+				generateDataInterfaces(_workingView);
+				_outputBuffer += "\t- DataInterface gerada.\n";
+				
+				//Gera o Data Access Objetc (Dao).
+				generateDao(_workingView);
+				_outputBuffer += "\t- Data Access Object gerado.\n";	
+
+				//Gera o Business Object (Biz).
+				generateBiz(_workingView);
+				_outputBuffer += "\t- Business Object gerado.\n";
+				
+				if (_generateCustomObjects) 
+				{
+					generateCustomView(_workingView);
+					generateCustomDataInterfaces(_workingView);
+					generateCustomDao(_workingView);
+					generateCustomBiz(_workingView);
+				}
+			
+				_outputBuffer += "\n";
+			}
+			
+			_outputBuffer += "\n";
+		}
+		
+		//Geração da DaoBase.
+		if (_generateDaoBase)
+		{
+			generateDaoBase();
+			_outputBuffer += "DaoBases geradas.\n";
+		}
+		
+		//Geração da BizBase.
+		if (_generateBizBase)
+		{
+			generateBizBase();
+			_outputBuffer += "BizBase gerada.";
+		}
+		
+		if (_outputBuffer == null) _outputBuffer = "Nenhum objeto gerado.";
+		output.text = _outputBuffer;
+	}
+	
+//==ÍNICIO DOS MÉTODOS DE APOIO======================================================
+	
+	private void printLicense()
+	{%>/*********************************************
+Generated by Intentor.Yamapper Class Generator
+http://intentor.com.br/projects/yamapper/
+*********************************************/<%
+	}
+	
+	private string formatPascalCasing(string value)
+	{
+		int length = value.Length;
+		string formatedValue = String.Empty;
+		
+		if (length == 1)
+		{
+			formatedValue = value.ToUpper();
+		}
+		else if (length > 1) 
+		{
+			formatedValue = value.Substring(0, 1).ToUpper();
+			if (_isInPascalCasing) formatedValue += value.Substring(1);
+			else formatedValue += value.Substring(1).ToLower();
+		}
+
+		return formatedValue;
+	}
+	
+	private string formatCamelCasing(string value)
+	{
+		int length = value.Length;
+		string formatedValue = String.Empty;
+		
+		if (length == 1)
+		{
+			formatedValue = value.ToLower();
+		}
+		else if (length > 1) 
+		{
+			formatedValue = value.Substring(0, 1).ToLower() +
+				value.Substring(1);
+		}
+
+		return formatedValue;
+	}
+
+	private string formatMemberName(string memberName)
+	{
+		return formatMemberName(memberName, false);
+	}
+
+	private string formatMemberName(string memberName
+		, bool firstWordAsLower)
+	{
+		string formatedName = String.Empty;
+		string[] nameParts = memberName.Replace(" ", "").Split('_');
+	
+		foreach (string namePart in nameParts) 
+			formatedName += formatPascalCasing(namePart);
+		
+		if (firstWordAsLower)
+			formatedName = formatCamelCasing(formatedName);
+		
+		return formatedName;
+	}
+
+	private string getFieldName(string fieldDbName)
+	{
+		return formatMemberName(fieldDbName, true);
+	}
+	
+	private string getPropertyName(string fieldDbName)
+	{
+		return formatMemberName(fieldDbName);
+	}
+	
+	private string getTableName(string alias)
+	{
+		string tableName = alias.Replace(" ", "");
+		
+		if (tableName.ToUpper().IndexOf("TB_") == 0)
+		{
+			tableName = tableName.Substring(3, tableName.Length - 3);
+		}
+		else if (tableName.ToUpper().IndexOf("TB") == 0)
+		{
+			tableName = tableName.Substring(2, tableName.Length - 2);
+		}
+		
+		tableName = _objectPrefix + formatMemberName(tableName);
+		
+		return tableName;
+	}
+	
+	private string getViewName(string alias)
+	{
+		string viewName = alias.Replace(" ", "");
+		
+		if (viewName.ToUpper().IndexOf("VW_") == 0)
+		{
+			viewName = viewName.Substring(3, viewName.Length - 3);
+		}
+		else if (viewName.ToUpper().IndexOf("VW") == 0)
+		{
+			viewName = viewName.Substring(2, viewName.Length - 2);
+		}
+		
+		viewName = _objectPrefix + formatMemberName(viewName) + "View";
+		
+		return viewName;
+	}
+	
+	private string getFieldType(IColumn field)
+	{
+		return getFieldType(field, true);
+	}
+		
+	private string getFieldType(IColumn field
+		, bool includeNullable)
+	{
+		string fieldTypeName = field.LanguageType;
+	
+		if (includeNullable &&
+			field.IsNullable && 
+			field.LanguageType != "string")
+		{
+			fieldTypeName = field.LanguageType + "?";
+		}
+		
+		return fieldTypeName;
+	}
+	
+	public string getDataInterfaceName(string tableName)
+	{
+		return "I" + tableName + "Repository";
+	}
+	
+	public string getDaoName(string tableName)
+	{
+		return tableName + "Dao";
+	}
+	
+	public string getBizName(string tableName)
+	{
+		return tableName + "Biz";
+	}
+
+//==FIM DOS MÉTODOS DE APOIO=========================================================
+
+//==ÍNICIO DOS MÉTODOS DE generateEntity()===========================================
+
+	private void generateEntity(ITable _workingTable)
+	{
+		string fileName = _tableName + ".cs";
+		printLicense();%>
+using System;
+using System.ComponentModel.DataAnnotations;
+using Intentor.Yamapper;
+
+namespace <%= _namespaceEntities %>
+{	
+	/// <summary><%= _workingTable.Description.Replace("\n", "	/// ") %></summary>
+	/// <remarks>Mapeada de <%= _workingTable.Alias %>.</remarks>	
+	[Serializable]
+	<%
+	if (!_createExternalMapping)
+	{%>[Table(Name = "<%= _workingTable.Alias %>"<% if (_connectionName != "") {%>, ConnectionName = "<%= _connectionName %>")<%}%>]
+	<%
+	}
+	%>public partial class <%= _tableName %>
+	{<% 		buildPublicTableAccessors(_workingTable); 
+%>	}
+}<%		output.save(System.IO.Path.Combine(_exportPathModel + @"\Core\Entities\Generated", fileName), false);
+		
+		output.clear();
+	}
+		
+	private void buildPublicTableAccessors(ITable table)
+	{
+		if(table.Columns.Count > 0)
+		{
+			foreach(IColumn field in table.Columns)
+			{
+				string fieldAccessor = getPropertyName(field.Alias);
+				bool isPrimaryKey = (field.IsInPrimaryKey);
+%>
+<%				if (!field.IsNullable) 
+				{
+%>		[Required]
+<%				}
+				
+				if (field.LanguageType == "string") 
+				{
+%>		[StringLength(<%= field.CharacterMaxLength.ToString() %>)]
+<%				}
+				if (!_createExternalMapping)
+			{
+%>		[Column(Name = "<%= field.Alias %>"<%= (isPrimaryKey ? ", IsPrimaryKey = true" : (field.IsNullable ? ", AllowNull = true" : "") ) %>)]
+<%			}
+%>		[Display(Name = "<%= fieldAccessor %>", Description = "<%= field.Description.Replace("\n", "		/// ") %>")]
+		public virtual <%= getFieldType(field) %> <%= fieldAccessor %> { get; set; }
+<%			}
+		}
+	}
+
+	private void generateCustomEntity(ITable _workingTable)
+	{
+		string fileName = _tableName + ".custom.cs";
+		printLicense();%>
+using System;
+using Intentor.Yamapper;
+
+namespace <%= _namespaceEntities %>
+{	
+	/// <summary>Entidade <%= _tableName %> utilizada para customização.</summary>
+	/// <remarks>Mapeada de <%= _workingTable.Alias %>.</remarks>
+	public partial class <%= _tableName %>
+	{
+		
+	}
+}<%		string path = System.IO.Path.Combine(_exportPathModel + @"\Core\Entities\Custom", fileName);
+		
+		if (System.IO.File.Exists(path))
+		{
+			_outputBuffer += "\t- Custom Entity já existente.\n";
+		}
+		else
+		{
+			output.save(path, false);
+			_outputBuffer += "\t- Custom Entity gerada.\n";
+		}
+		
+		output.clear();
+	}
+
+//==FIM DOS MÉTODOS DE generateEntity()===========================================
+
+//==ÍNICIO DOS MÉTODOS DE generateView()==========================================
+
+	private void generateView(IView _workingView)
+	{
+		string fileName = _viewName + ".cs";
+		printLicense();%>
+using System;
+using System.ComponentModel.DataAnnotations;
+using Intentor.Yamapper;
+
+namespace <%= _namespaceViews %>
+{	
+	/// <summary>View <%= _viewName %>.</summary>
+	/// <remarks>Mapeada de <%= _workingView.Alias %>.</remarks>	
+	[Serializable]
+<%if (!_createExternalMapping)
+	{
+%>	[Table(Name = "<%= _workingView.Alias %>", IsView = true<% if (_connectionName != "") {%>, ConnectionName = "<%= _connectionName %>"<%}%>)]
+<%	}
+%>	public partial class <%= _viewName %>
+	{<% buildPublicViewAccessors(_workingView); 
+%>	}
+}<%		output.save(System.IO.Path.Combine(_exportPathModel + @"\Core\Views\Generated", fileName), false);
+		
+		output.clear();
+	}
+		
+	private void buildPublicViewAccessors(IView view)
+	{
+		if(view.Columns.Count > 0)
+		{
+			foreach(IColumn field in view.Columns)
+			{
+%>
+<%				string fieldAccessor = getPropertyName(field.Alias);
+
+				if (!_createExternalMapping)
+				{
+%>		[Column(Name = "<%= field.Alias %>")]
+<%				}
+%>		[Display(Name = "<%= fieldAccessor %>", Description = "<%= field.Description.Replace("\n", "		/// ") %>")]
+		public <%= getFieldType(field) %> <%= fieldAccessor %> { get; set; }
+<%			}
+		}
+	}
+	
+	private void generateCustomView(IView _workingView)
+	{
+		string fileName = _viewName + ".custom.cs";
+		printLicense();%>
+using System;
+using Intentor.Yamapper;
+
+namespace <%= _namespaceViews %>
+{	
+	/// <summary>View <%= _viewName %> utilizada para customização.</summary>
+	/// <remarks>Mapeada de <%= _workingView.Alias %>.</remarks>
+	public partial class <%= _viewName %>
+	{
+		
+	}
+}<%		string path = System.IO.Path.Combine(_exportPathModel + @"\Core\Views\Custom", fileName);
+		
+		if (System.IO.File.Exists(path))
+		{
+			_outputBuffer += "\t- Custom View já existente.\n";
+		}
+		else
+		{
+			output.save(path, false);
+			_outputBuffer += "\t- Custom View gerada.\n";
+		}
+		
+		output.clear();
+	}
+	
+//==FIM DOS MÉTODOS DE generateView()=============================================
+
+//==ÍNICIO DOS MÉTODOS DE generateMapping()=======================================
+
+	private void generateMapping(ITable table)
+	{
+		string fileName = _tableName + ".cmf";
+%><?xml version="1.0" encoding="utf-8" ?>
+<yamapper-mapping xmlns="<%= XmlConfigSchema %>">
+	<class table="<%= table.Alias %>" name="<%= _namespaceEntities %>.<%= _tableName %>, <%= _nameAssemblyCore %>"<% if (_connectionName != "") {%> connectionName="<%= _connectionName %>"<%}%>><%
+		if(table.Columns.Count > 0)
+		{
+			foreach(IColumn field in table.Columns)
+			{%>
+		<property name="<%= getPropertyName(field.Alias) %>" column="<%= field.Alias %>"<%= (field.IsInPrimaryKey ? " isPrimaryKey=\"true\"" : (field.IsNullable ? " allowNull=\"true\"" : "") ) %><%= (field.IsAutoKey ? " isAutoKey=\"true\"" : "") %>/><%
+			}
+		}%>	
+	</class>
+</yamapper-mapping><%
+		output.save(System.IO.Path.Combine(_exportPathMappings, fileName), false);
+		
+		output.clear();
+	}
+	
+	private void generateMapping(IView view)
+	{
+		string fileName = _viewName + ".cmf";
+%><?xml version="1.0" encoding="utf-8" ?>
+<yamapper-mapping xmlns="<%= XmlConfigSchema %>">
+	<class table="<%= view.Alias %>" name="<%= _namespaceViews %>.<%= _viewName %>, <%= _nameAssemblyCore %>" isView="true" <%if (_connectionName != "") { %> connectionName="<%= _connectionName %>"<%}%>><%
+		if(view.Columns.Count > 0)
+		{
+			foreach(IColumn field in view.Columns)
+			{%>
+		<property name="<%= getPropertyName(field.Alias) %>" column="<%= field.Alias %>" /><%
+			}
+		}%>	
+	</class>
+</yamapper-mapping><%
+		output.save(System.IO.Path.Combine(_exportPathMappings, fileName), false);
+		
+		output.clear();
+	}
+
+//==FIM DOS MÉTODOS DE generateMapping()=============================================
+
+//==ÍNICIO DOS MÉTODOS DE generateDataInterfaces()===================================
+
+	private void generateDataInterfaces(ITable _workingTable)
+	{
+		string interfaceName = getDataInterfaceName(_tableName);
+		string fileName = interfaceName + ".cs";
+		
+		printLicense();%>
+using System;
+using System.Collections.Generic;
+using <%= _namespaceEntities %>;<%= (_insertNameSpaceViews ? "\nusing " + _namespaceViews + ";" : "")  %>
+
+namespace <%= _namespaceDataInterfaces %>
+{	
+	/// <summary>Data interface <%= interfaceName %>.</summary>
+	public partial interface <%= interfaceName %> :
+        Intentor.Yamapper.ICommonDataBaseActions<<%= _tableName %>>
+	{<%
+		if (_workingTable.PrimaryKeys.Count > 0)
+		{
+	%>
+		/// <summary>Obtém objeto <see cref="<%= _tableName %>"/> com base em sua(s) chave(s) primária(s).</summary>
+		/// <returns>Objeto <see cref="<%= _tableName %>"/>.</returns>
+		<%= _tableName %> GetById(<%
+				bool isFirstParameter = true;
+			
+				foreach (IColumn field in _workingTable.PrimaryKeys) 
+				{
+					%><%= (isFirstParameter ? String.Empty : ", ") %><%= getFieldType(field, false) %> <%= getFieldName(field.Alias) %><%
+					
+					if (isFirstParameter) isFirstParameter = false;
+				}
+		%>);
+		
+		/// <summary>Exclui um objeto <see cref="<%= _tableName %>"/> com base em sua(s) chave(s) primária(s).</summary>
+        /// <returns>Quantidade de registros excluídos.</returns>
+		int Delete(<%
+				isFirstParameter = true;
+			
+				foreach (IColumn field in _workingTable.PrimaryKeys) 
+				{
+					%><%= (isFirstParameter ? String.Empty : ", ") %><%= getFieldType(field, false) %> <%= getFieldName(field.Alias) %><%
+					
+					if (isFirstParameter) isFirstParameter = false;
+				}
+		%>);
+<%
+		}
+	
+		bool isFirstExecution = true;
+		List<string> methods = new List<string>();
+		foreach (IForeignKey fk in _workingTable.ForeignKeys)
+		{	
+			string methodName = "GetBy";		
+			bool isFirstParameterInName = true;			
+			foreach (IColumn field in fk.ForeignColumns) 
+			{
+				if (isFirstParameterInName) isFirstParameterInName = false;
+				else methodName+= "And";
+			
+				methodName += getPropertyName(field.Alias);
+			}
+			
+			if (methods.Contains(methodName)) continue;
+			else methods.Add(methodName);	
+			
+			if (!isFirstExecution) { %>
+<%
+			}
+			%>
+		/// <summary>Obtém uma lista de objetos <see cref="<%= _tableName %>"/> com base em chave estrangeira.</summary>
+		/// <returns>Lista de objetos <see cref="<%= _tableName %>"/>.</returns>
+		List<<%= _tableName %>> <%= methodName %>(<%
+				bool isFirstParameter = true;
+			
+				foreach (IColumn field in fk.ForeignColumns) 
+				{
+					%><%= (isFirstParameter ? String.Empty : ", ") %><%= getFieldType(field, false) %> <%= getFieldName(field.Alias) %><%
+					
+					if (isFirstParameter) isFirstParameter = false;
+				}
+		%>);<%
+			if (isFirstExecution) isFirstExecution = false;
+		}
+		%>
+	}
+}
+<%
+		output.save(System.IO.Path.Combine(_exportPathModel + @"\Core\DataInterfaces\Generated", fileName), false);
+		
+		output.clear();
+	}
+	
+	private void generateCustomDataInterfaces(ITable _workingTable)
+	{
+		string interfaceName = getDataInterfaceName(_tableName);
+		string fileName = interfaceName + ".custom.cs";
+		
+		printLicense();%>
+using System;
+using System.Collections.Generic;
+using <%= _namespaceEntities %>;<%= (_insertNameSpaceViews ? "\nusing " + _namespaceViews + ";" : "")  %>
+
+namespace <%= _namespaceDataInterfaces %>
+{	
+	/// <summary>Data interface <%= interfaceName %> utilizada para métodos customizados.</summary>
+	public partial interface <%= interfaceName %>
+	{
+
+	}
+}<%		string path = System.IO.Path.Combine(_exportPathModel + @"\Core\DataInterfaces\Custom", fileName);
+		if (System.IO.File.Exists(path))
+		{
+			_outputBuffer += "\t- Custom DataInterface já existente.\n";
+		}
+		else
+		{
+			output.save(path, false);
+			_outputBuffer += "\t- Custom DataInterface gerada.\n";
+		}
+
+		output.clear();
+	}
+	
+	private void generateDataInterfaces(IView _workingView)
+	{
+		string interfaceName = getDataInterfaceName(_viewName);
+		string fileName = interfaceName + ".cs";
+		
+		printLicense();%>
+using System;
+using System.Collections.Generic;
+using <%= _namespaceEntities %>;
+using <%= _namespaceViews %>;
+
+namespace <%= _namespaceDataInterfaces %>
+{	
+	/// <summary>Data interface <%= interfaceName %>.</summary>
+	public partial interface <%= interfaceName %> :
+        Intentor.Yamapper.IViewDataBaseActions<<%= _viewName %>>
+	{<%
+		if(_workingView.Columns.Count > 0)
+		{
+			bool isFirstExecution = true;
+		
+			foreach(IColumn field in _workingView.Columns)
+			{
+				if (!isFirstExecution) { %>
+<%
+				}				
+				string fieldAccessor = getPropertyName(field.Alias);
+%>
+		/// <summary>Obtém uma lista de objetos <see cref="<%= _viewName %>"/> com base no valor da propriedade <%= fieldAccessor%>.</summary>
+		/// <returns>Lista de objetos <see cref="<%= _viewName %>"/>.</returns>
+		List<<%= _viewName %>> GetBy<%= fieldAccessor %>(<%= getFieldType(field, false) %> value);<%
+				if (isFirstExecution) isFirstExecution = false;		
+			}
+%>
+	}<%
+		}
+%>
+}<%		output.save(System.IO.Path.Combine(_exportPathModel + @"\Core\DataInterfaces\Generated", fileName), false);
+		
+		output.clear();
+	}
+	
+	private void generateCustomDataInterfaces(IView _workingView)
+	{
+		string interfaceName = getDataInterfaceName(_viewName);
+		string fileName = interfaceName + ".custom.cs";
+		
+		printLicense();%>
+using System;
+using System.Collections.Generic;
+using <%= _namespaceEntities %>;
+using <%= _namespaceViews %>;
+
+namespace <%= _namespaceDataInterfaces %>
+{	
+	/// <summary>Data interface <%= interfaceName %> utilizada para métodos customizados.</summary>
+	public partial interface <%= interfaceName %>
+	{
+
+	}
+}<%		string path = System.IO.Path.Combine(_exportPathModel + @"\Core\DataInterfaces\Custom", fileName);
+		if (System.IO.File.Exists(path))
+		{
+			_outputBuffer += "\t- Custom DataInterface já existente.\n";
+		}
+		else
+		{
+			output.save(path, false);
+			_outputBuffer += "\t- Custom DataInterface gerada.\n";
+		}
+
+		output.clear();
+	}
+
+//==FIM DOS MÉTODOS DE generateDataInterfaces()======================================
+
+//==ÍNICIO DOS MÉTODOS DE generateDao()==============================================
+
+	private void generateDao(ITable _workingTable)
+	{
+		string className = getDaoName(_tableName);
+		string fileName = className + ".cs";
+		printLicense();%>
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using Intentor.Utilities;
+using Intentor.Yamapper;
+using <%= _namespaceEntities %>;<%= (_insertNameSpaceViews ? "\nusing " + _namespaceViews + ";" : "")  %>
+
+namespace <%= _namespaceDao %>
+{	
+	/// <summary>Data Access Object <%= className %>.</summary>
+	public sealed partial class <%= className %> :
+        <%= _namespaceDao %>.Supertypes.CrudDaoBase<<%= _tableName %>>,
+        <%= _namespaceDataInterfaces %>.<%= getDataInterfaceName(_tableName) %>
+	{		
+		#region Métodos
+<%		if (_workingTable.PrimaryKeys.Count > 0)
+		{
+	%>
+		public <%= _tableName %> GetById(<%
+				bool isFirstParameter = true;
+			
+				foreach (IColumn field in _workingTable.PrimaryKeys) 
+				{
+					%><%= (isFirstParameter ? String.Empty : ", ") %><%= getFieldType(field, false) %> <%= getFieldName(field.Alias) %><%
+					
+					if (isFirstParameter) isFirstParameter = false;
+				}
+		%>) 
+		{
+			var list = _provider.Get<<%= _tableName %>>(Criteria.Create()<%
+					foreach (IColumn field in _workingTable.PrimaryKeys) 
+					{
+						%>
+				.Add(Expression.Equal("<%= getPropertyName(field.Alias) %>", <%= getFieldName(field.Alias) %>))<%
+					}
+				%>);
+				
+            return (list.Count == 0? null : list[0]);
+		}
+		
+		public int Delete(<%
+				isFirstParameter = true;
+			
+				foreach (IColumn field in _workingTable.PrimaryKeys) 
+				{
+					%><%= (isFirstParameter ? String.Empty : ", ") %><%= getFieldType(field, false) %> <%= getFieldName(field.Alias) %><%
+					
+					if (isFirstParameter) isFirstParameter = false;
+				}
+		%>) 
+		{
+			return _provider.Delete<<%= _tableName %>>(Criteria.Create()<%
+					foreach (IColumn field in _workingTable.PrimaryKeys) 
+					{
+						%>
+				.Add(Expression.Equal("<%= getPropertyName(field.Alias) %>", <%= getFieldName(field.Alias) %>))<%
+					}
+				%>);
+		}
+<%
+		}
+
+		List<string> methods = new List<string>();
+		foreach (IForeignKey fk in _workingTable.ForeignKeys)
+		{		
+			string methodName = "GetBy";		
+			bool isFirstParameterInName = true;	
+			foreach (IColumn field in fk.ForeignColumns) 
+			{
+				if (isFirstParameterInName) isFirstParameterInName = false;
+				else methodName+= "And";
+			
+				methodName += getPropertyName(field.Alias);
+			}
+			
+			if (methods.Contains(methodName)) continue;
+			else methods.Add(methodName);		
+%>
+		public List<<%= _tableName %>> <%= methodName %>(<%
+				bool isFirstParameter = true;
+			
+				foreach (IColumn field in fk.ForeignColumns) 
+				{
+					%><%= (isFirstParameter ? String.Empty : ", ") %><%= getFieldType(field, false) %> <%= getFieldName(field.Alias) %><%
+					
+					if (isFirstParameter) isFirstParameter = false;
+				}
+			%>)
+		{
+			return _provider.Get<<%= _tableName %>>(Criteria.Create()<%
+					foreach (IColumn field in fk.ForeignColumns) 
+					{
+						%>
+				.Add(Expression.Equal("<%= getPropertyName(field.Alias) %>", <%= getFieldName(field.Alias) %>))<%
+					}
+				%>);
+		}
+<%
+		}
+		
+		%>
+        #endregion
+	}
+}<%		output.save(System.IO.Path.Combine(_exportPathModel + @"\Data\Generated", fileName), false);
+		
+		output.clear();
+	}
+	
+	private void generateCustomDao(ITable _workingTable)
+	{
+		string className = getDaoName(_tableName);
+		string fileName = className + ".custom.cs";
+		printLicense();%>
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using Intentor.Utilities;
+using Intentor.Yamapper;
+using <%= _namespaceEntities %>;<%= (_insertNameSpaceViews ? "\nusing " + _namespaceViews + ";" : "")  %>
+
+namespace <%= _namespaceDao %>
+{	
+	/// <summary>Data Access Object <%= className %> utilizada para métodos customizados.</summary>
+	public sealed partial class <%= className %>
+	{
+
+	}
+}<%		string path = System.IO.Path.Combine(_exportPathModel + @"\Data\Custom", fileName);
+		if (System.IO.File.Exists(path))
+		{
+			_outputBuffer += "\t- Custom Data Access Object já existente.\n";
+		}
+		else
+		{
+			output.save(path, false);
+			_outputBuffer += "\t- Custom Data Access Object gerado.\n";
+		}
+
+		output.clear();
+	}
+	
+	private void generateDao(IView _workingView)
+	{
+		string className = getDaoName(_viewName);
+		string fileName = className + ".cs";
+		printLicense();%>
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using Intentor.Utilities;
+using Intentor.Yamapper;
+using <%= _namespaceEntities %>;
+using <%= _namespaceViews %>;
+
+namespace <%= _namespaceDao %>
+{	
+	/// <summary>Data Access Object <%= className %>.</summary>
+	public sealed partial class <%= className %> :
+        <%= _namespaceDao %>.Supertypes.ViewDaoBase<<%= _viewName %>>,
+        <%= _namespaceDataInterfaces %>.<%= getDataInterfaceName(_viewName) %>
+	{		
+		#region Métodos
+<%
+		if(_workingView.Columns.Count > 0)
+		{
+			foreach(IColumn field in _workingView.Columns)
+			{
+				string fieldAccessor = getPropertyName(field.Alias);
+%>
+		public List<<%= _viewName %>> GetBy<%= fieldAccessor %>(<%= getFieldType(field, false) %> value)
+		{
+			return _provider.Get<<%= _viewName %>>(Criteria.Create()
+				.Add(Expression.Equal("<%= fieldAccessor %>", value)));
+		}
+<%
+			}
+		}		
+%>		
+        #endregion
+	}
+}<%		output.save(System.IO.Path.Combine(_exportPathModel + @"\Data\Generated", fileName), false);
+		
+		output.clear();
+	}
+	
+		private void generateCustomDao(IView _workingView)
+	{
+		string className = getDaoName(_viewName);
+		string fileName = className + ".custom.cs";
+		printLicense();%>
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using Intentor.Utilities;
+using Intentor.Yamapper;
+using <%= _namespaceEntities %>;
+using <%= _namespaceViews %>;
+
+namespace <%= _namespaceDao %>
+{	
+	/// <summary>Data Access Object <%= className %> utilizada para métodos customizados.</summary>
+	public sealed partial class <%= className %>
+	{
+
+	}
+}<%		string path = System.IO.Path.Combine(_exportPathModel + @"\Data\Custom", fileName);
+		if (System.IO.File.Exists(path))
+		{
+			_outputBuffer += "\t- Custom Data Access Object já existente.\n";
+		}
+		else
+		{
+			output.save(path, false);
+			_outputBuffer += "\t- Custom Data Access Object gerado.\n";
+		}
+
+		output.clear();	}
+
+//==FIM DOS MÉTODOS DE generateDao()=================================================
+
+//==ÍNICIO DOS MÉTODOS DE generateBiz()==============================================
+
+	private void generateBiz(ITable _workingTable)
+	{
+		string className = getBizName(_tableName);
+		string fileName = className + ".cs";
+		printLicense();%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Intentor.Yamapper;
+using <%= _namespaceDataInterfaces %>;
+using <%= _namespaceEntities %>;
+using <%= _namespaceDao %>;<%= (_insertNameSpaceViews ? "\nusing " + _namespaceViews + ";" : "")  %>
+
+namespace <%= _namespaceBiz %>
+{	
+	/// <summary>Business Object <%= className %>.</summary>
+	public partial class <%= className %> :
+		<%= _namespaceBiz %>.Supertypes.BizBase<<%= getDataInterfaceName(_tableName) %>>
+		, <%= getDataInterfaceName(_tableName) %>
+	{
+		#region Construtor
+
+        public <%= className %>(<%= getDataInterfaceName(_tableName) %> dao)
+            : base(dao)
+        {            
+        }
+
+        #endregion
+		
+		#region ICommonDataBaseActions Members
+		
+		public List<<%= _tableName %>> GetAll()
+		{
+            return _dao.GetAll();
+		}
+
+        public virtual List<<%= _tableName %>> GetByCriteria(Criteria crit)
+        {
+            return _dao.GetByCriteria(crit);
+        }
+
+        public void Create(<%= _tableName %> obj)
+        {
+            _dao.Create(obj);
+        }
+
+        public void Update(<%= _tableName %> obj)
+        {
+            _dao.Update(obj);
+        }
+
+        public int Delete(Criteria crit)
+        {
+            return _dao.Delete(crit);
+        }
+		
+        public int Count()
+        {
+            return _dao.Count();
+        }
+
+        public int Count(Criteria crit)
+        {
+            return _dao.Count(crit);
+        }
+
+        public bool Exists(Criteria crit)
+        {
+            return _dao.Exists(crit);
+        }
+
+        public bool HasRows()
+        {
+            return _dao.HasRows();
+        }
+
+        #endregion
+
+		#region Métodos
+<%		if (_workingTable.PrimaryKeys.Count > 0)
+		{
+	%>
+		public <%= _tableName %> GetById(<%
+				bool isFirstParameter = true;
+			
+				foreach (IColumn field in _workingTable.PrimaryKeys) 
+				{
+					%><%= (isFirstParameter ? String.Empty : ", ") %><%= getFieldType(field, false) %> <%= getFieldName(field.Alias) %><%
+					
+					if (isFirstParameter) isFirstParameter = false;
+				}
+		%>) 
+		{
+			return _dao.GetById(<%
+				bool isFirstParameterForDao = true;
+			
+				foreach (IColumn field in _workingTable.PrimaryKeys) 
+				{
+					%><%= (isFirstParameterForDao ? String.Empty : ", ") %><%= getFieldName(field.Alias) %><%
+					
+					if (isFirstParameterForDao) isFirstParameterForDao = false;
+				}
+			%>);
+		}
+			
+		public int Delete(<%
+				isFirstParameter = true;
+			
+				foreach (IColumn field in _workingTable.PrimaryKeys) 
+				{
+					%><%= (isFirstParameter ? String.Empty : ", ") %><%= getFieldType(field, false) %> <%= getFieldName(field.Alias) %><%
+					
+					if (isFirstParameter) isFirstParameter = false;
+				}
+		%>) 
+		{
+			return _dao.Delete(<%
+				isFirstParameterForDao = true;
+			
+				foreach (IColumn field in _workingTable.PrimaryKeys) 
+				{
+					%><%= (isFirstParameterForDao ? String.Empty : ", ") %><%= getFieldName(field.Alias) %><%
+					
+					if (isFirstParameterForDao) isFirstParameterForDao = false;
+				}
+			%>);
+		}
+<%
+		}
+		List<string> methods = new List<string>();
+		foreach (IForeignKey fk in _workingTable.ForeignKeys)
+		{		
+			string methodName = "GetBy";		
+			bool isFirstParameterInName = true;			
+			foreach (IColumn field in fk.ForeignColumns) 
+			{
+				if (isFirstParameterInName) isFirstParameterInName = false;
+				else methodName+= "And";
+			
+				methodName += getPropertyName(field.Alias);
+			}
+			
+			if (methods.Contains(methodName)) continue;
+			else methods.Add(methodName);		
+%>
+		public List<<%= _tableName %>> <%= methodName %>(<%
+				bool isFirstParameter = true;
+			
+				foreach (IColumn field in fk.ForeignColumns) 
+				{
+					%><%= (isFirstParameter ? String.Empty : ", ") %><%= getFieldType(field, false) %> <%= getFieldName(field.Alias) %><%
+					
+					if (isFirstParameter) isFirstParameter = false;
+				}
+			%>)
+		{
+			return _dao.<%= methodName %>(<%
+				bool isFirstParameterForDao = true;
+			
+				foreach (IColumn field in fk.ForeignColumns) 
+				{
+					%><%= (isFirstParameterForDao ? String.Empty : ", ") %><%= getFieldName(field.Alias) %><%
+					
+					if (isFirstParameterForDao) isFirstParameterForDao = false;
+				}
+			%>);
+		}
+<%
+		}
+		
+		%>
+        #endregion
+	}
+}<%		output.save(System.IO.Path.Combine(_exportPathModel + @"\Domain\Generated", fileName), false);
+		
+		output.clear();
+	}
+	
+	private void generateCustomBiz(ITable _workingTable)
+	{
+		string className = getBizName(_tableName);
+		string fileName = className + ".custom.cs";
+		printLicense();%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Intentor.Yamapper;
+using <%= _namespaceDataInterfaces %>;
+using <%= _namespaceEntities %>;
+using <%= _namespaceDao %>;<%= (_insertNameSpaceViews ? "\nusing " + _namespaceViews + ";" : "")  %>
+
+namespace <%= _namespaceBiz %>
+{	
+	/// <summary>Business Object <%= className %> utilizada para métodos customizados.</summary>
+	public partial class <%= className %>
+	{
+
+	}
+}<%		string path = System.IO.Path.Combine(_exportPathModel + @"\Domain\Custom", fileName);
+		if (System.IO.File.Exists(path))
+		{
+			_outputBuffer += "\t- Custom Business Object já existente.\n";
+		}
+		else
+		{
+			output.save(path, false);
+			_outputBuffer += "\t- Custom Business Object gerado.\n";
+		}
+
+		output.clear();
+	}
+	
+	private void generateBiz(IView _workingView)
+	{
+		string className = getBizName(_viewName);
+		string fileName = className + ".cs";
+		printLicense();%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Intentor.Yamapper;
+using <%= _namespaceDataInterfaces %>;
+using <%= _namespaceEntities %>;
+using <%= _namespaceDao %>;
+using <%= _namespaceViews %>;
+
+namespace <%= _namespaceBiz %>
+{	
+	/// <summary>Bsiness Object <%= className %>.</summary>
+	public partial class <%= className %> :
+		<%= _namespaceBiz %>.Supertypes.BizBase<<%= getDataInterfaceName(_viewName) %>>
+		, <%= getDataInterfaceName(_viewName) %>
+	{
+		#region Construtor
+
+        public <%= className %>(<%= getDataInterfaceName(_viewName) %> dao)
+            : base(dao)
+        {            
+        }
+
+        #endregion
+		
+		#region IViewDataBaseActions Members
+		
+		public List<<%= _viewName %>> GetAll()
+		{
+            return _dao.GetAll();
+		}
+
+        public virtual List<<%= _viewName %>> GetByCriteria(Criteria crit)
+        {
+            return _dao.GetByCriteria(crit);
+        }
+		
+        public int Count()
+        {
+            return _dao.Count();
+        }
+
+        public int Count(Criteria crit)
+        {
+            return _dao.Count(crit);
+        }
+
+        public bool Exists(Criteria crit)
+        {
+            return _dao.Exists(crit);
+        }
+
+        public bool HasRows()
+        {
+            return _dao.HasRows();
+        }
+
+        #endregion
+		
+		#region Métodos<%
+		if(_workingView.Columns.Count > 0)
+		{
+			foreach(IColumn field in _workingView.Columns)
+			{
+				string fieldAccessor = getPropertyName(field.Alias);
+%>
+
+		public List<<%= _viewName %>> GetBy<%= fieldAccessor %>(<%= getFieldType(field, false) %> value)
+		{
+			return _dao.GetBy<%= fieldAccessor %>(value);
+		}<%
+			}
+		}		
+		%>
+		
+        #endregion
+	}
+}<%		output.save(System.IO.Path.Combine(_exportPathModel + @"\Domain\Generated", fileName), false);
+		
+		output.clear();
+	}
+	
+	private void generateCustomBiz(IView _workingView)
+	{
+		string className = getBizName(_viewName);
+		string fileName = className + ".custom.cs";
+		printLicense();%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Intentor.Yamapper;
+using <%= _namespaceDataInterfaces %>;
+using <%= _namespaceEntities %>;
+using <%= _namespaceDao %>;
+using <%= _namespaceViews %>;
+
+namespace <%= _namespaceBiz %>
+{	
+	/// <summary>Business Object <%= className %> utilizada para métodos customizados.</summary>
+	public partial class <%= className %>
+	{
+
+	}
+}<%		string path = System.IO.Path.Combine(_exportPathModel + @"\Domain\Custom", fileName);
+		if (System.IO.File.Exists(path))
+		{
+			_outputBuffer += "\t- Custom Business Object já existente.\n";
+		}
+		else
+		{
+			output.save(path, false);
+			_outputBuffer += "\t- Custom Business Object gerado.\n";
+		}
+
+		output.clear();
+	}
+
+//==FIM DOS MÉTODOS DE generateBiz()==============================================
+
+//==ÍNICIO DOS MÉTODOS DE generateDaoBase()=======================================
+
+	private void generateDaoBase()
+	{
+		generateMainDaoBase();
+		generateCrudDaoBase();
+		generateViewDaoBase();
+	}
+	
+	private void generateMainDaoBase()
+	{		
+		printLicense();%>
+using System;
+using System.Collections.Generic;
+using Intentor.Yamapper;
+
+namespace <%= _namespaceDao %>.Supertypes
+{
+    /// <summary>Supertype para Data Access Objects (Dao).</summary>
+    public abstract class DaoBase
+    {
+        #region Campos
+
+        /// <summary>Provedor de acesso ao banco de dados.</summary>
+        protected DbProvider _provider;
+
+        #endregion
+
+        #region Propriedades
+
+        /// <summary>Provedor de acesso ao banco de dados.</summary>
+        public DbProvider CurrentProvider
+        {
+            get { return _provider; }
+        }
+
+        #endregion
+
+        #region Métodos
+
+        /// <summary>Obtém o provedor de acesso utilizado pela Dao.</summary>
+        /// <remarks>Obtém o provedor padrão de acesso ao banco de dados.</remarks>
+        protected void GetCurrentProvider()
+        {
+            _provider = DbProviderFactory.GetProvider();
+        }
+
+        /// <summary>Obtém o provedor de acesso utilizado pela Dao.</summary>
+        /// <param name="connectionName">Nome da conexão para acesso ao banco de dados.</param>
+        protected void GetCurrentProvider(string providerName)
+        {
+            _provider = DbProviderFactory.GetProvider(providerName);
+        }
+
+        /// <summary>Obtém o provedor de acesso utilizado pela Dao.</summary>
+        /// <typeparam name="T">Tipo da entidade a ter o nome da conexão obtida.</typeparam>
+        protected void GetCurrentProvider<T>()
+            where T : class
+        {
+            _provider = DbProviderFactory.GetProvider<T>();
+        }
+
+        #endregion
+    }
+}
+<%
+		output.save(_exportPathModel + @"\Data\Supertypes\DaoBase.cs", false);
+		
+		output.clear();
+	}
+	
+	private void generateCrudDaoBase()
+	{		
+		printLicense();%>
+using System;
+using System.Collections.Generic;
+using Intentor.Yamapper;
+
+namespace <%= _namespaceDao %>.Supertypes
+{
+    /// <summary>Supertype para Data Access Objects (Dao) que realizam  CRUD, utilizado para tabelas.</summary>
+    /// <typeparam name="T">Tipo da entidade que representa a tabela do banco de dados.</typeparam>
+    public abstract class CrudDaoBase<T> : DaoBase, ICommonDataBaseActions<T>
+        where T : class
+    {
+        #region Construtor
+
+        public CrudDaoBase()
+        {
+            this.GetCurrentProvider<T>();
+        }
+
+        #endregion
+
+        #region ICommonDataBaseActions<T,TId> Members
+
+        public virtual List<T> GetAll()
+        {
+            return _provider.GetAll<T>();
+        }
+
+        public virtual List<T> GetByCriteria(Criteria crit)
+        {
+            return _provider.Get<T>(crit);
+        }
+
+        public virtual void Create(T obj)
+        {
+            _provider.Insert<T>(obj);
+        }
+
+        public virtual void Update(T obj)
+        {
+            _provider.Update<T>(obj);
+        }
+
+        public virtual int Delete(Criteria crit)
+        {
+            return _provider.Delete<T>(crit);
+        }
+
+        public virtual int Count()
+        {
+            return _provider.Count<T>();
+        }
+
+        public virtual int Count(Criteria crit)
+        {
+            return _provider.Count<T>(crit);
+        }
+
+        public virtual bool Exists(Criteria crit)
+        {
+            return _provider.Exists<T>(crit);
+        }
+
+        public virtual bool HasRows()
+        {
+            return _provider.Exists<T>();
+        }
+
+        #endregion
+    }
+}
+<%
+		output.save(_exportPathModel + @"\Data\Supertypes\CrudDaoBase.cs", false);
+		
+		output.clear();
+	}
+	
+	private void generateViewDaoBase()
+	{		
+		printLicense();%>
+using System;
+using System.Collections.Generic;
+using Intentor.Yamapper;
+
+namespace <%= _namespaceDao %>.Supertypes
+{	
+	/// <summary>Supertype para Data Access Objects (Dao) somente leitura, utilizados para Views.</summary>
+    /// <typeparam name="T">Tipo da entidade que representa a view do banco de dados.</typeparam>
+    public abstract class ViewDaoBase<T> : DaoBase
+        where T : class
+    {
+        #region Construtor
+
+        public ViewDaoBase()
+        {
+            this.GetCurrentProvider<T>();
+        }
+
+        #endregion
+
+        #region Métodos
+
+        public virtual List<T> GetAll()
+        {
+            return _provider.GetAll<T>();
+        }
+
+        public virtual List<T> GetByCriteria(Criteria crit)
+        {
+            return _provider.Get<T>(crit);
+        }
+
+        public virtual int Count()
+        {
+            return _provider.Count<T>();
+        }
+
+        public virtual int Count(Criteria crit)
+        {
+            return _provider.Count<T>(crit);
+        }
+
+        public virtual bool Exists(Criteria crit)
+        {
+            return _provider.Exists<T>(crit);
+        }
+
+        public virtual bool HasRows()
+        {
+            return _provider.Exists<T>();
+        }
+
+        #endregion
+    }
+}
+<%
+		output.save(_exportPathModel + @"\Data\Supertypes\ViewDaoBase.cs", false);
+		
+		output.clear();
+	}
+	
+//==FIM DOS MÉTODOS DE generateDaoBase()==========================================
+
+//==ÍNICIO DOS MÉTODOS DE generateBizBase()=======================================
+
+	private void generateBizBase()
+	{ 
+		printLicense();%>
+using System;
+using System.Collections.Generic;
+
+namespace <%= _namespaceBiz %>.Supertypes
+{
+    /// <summary>Supertype para Business Objects (Biz).</summary>
+    /// <typeparam name="T">Tipo do objeto que representa o repositório de dados.</typeparam>
+    public abstract class BizBase<T>
+    {
+        #region Construtor
+
+        public BizBase(T dao)
+        {
+            _dao = dao;
+        }
+
+        #endregion
+
+        #region Campos
+
+        /// <summary>Data Access Object relacionado ao objeto de negócios.</summary>
+        protected T _dao;
+
+        #endregion
+    }
+}
+<%
+		output.save(_exportPathModel + @"\Domain\Supertypes\BizBase.cs", false);
+		
+		output.clear();
+	}
+
+//==FIM DOS MÉTODOS DE generateBizBase()==========================================	
+
+//==INÍCIO DOS MÉTODOS DE generateWebForm()=======================================
+
+	private bool generateWebForm(ITable _workingTable)
+	{
+		//Somente gera WebForms para tabelas com 1 primary key.
+		if (_workingTable.PrimaryKeys.Count == 1) 
+		{
+			generateASCX(_workingTable);
+			generateDesigner(_workingTable);
+			generateCodeBehind(_workingTable);
+			return true;
+		} 
+		else
+		{
+			return false;
+		}
+	}
+	
+	private void generateASCX(ITable _workingTable) 
+	{
+		string fileName = "Uc" + _tableName + ".ascx";
+%><%= System.Web.HttpUtility.HtmlDecode("&lt;") %>%@ Control Language="C#" AutoEventWireup="true" CodeBehind="<%= fileName %>.cs" Inherits="<%= _namespaceUserControls %>.Uc<%= _tableName %>" %<%= System.Web.HttpUtility.HtmlDecode("&gt;") %>
+<asp:UpdatePanel ID="upDados" runat="server" ChildrenAsTriggers="true" UpdateMode="Conditional">
+    <ContentTemplate>
+        <div id="dvGrid" runat="server">
+            <asp:GridView ID="grvDados" runat="server" AutoGenerateColumns="False" 
+                Caption="<%= _tableName %>" AllowPaging="True" 
+                DataKeyNames="<%= getPropertyName(_workingTable.PrimaryKeys[0].Alias) %>" PageSize="20"
+                DataSourceID="ods<%= _tableName %>"
+                OnRowDataBound="grvDados_RowDataBound"
+                OnRowCommand="grvDados_RowCommand">
+                <Columns>
+                    <asp:TemplateField ShowHeader="False">
+                        <ItemTemplate>
+                            <asp:ImageButton ID="ibtnVer" runat="server" CausesValidation="false" 
+                                CommandName="Ver" AlternateText="Ver"></asp:ImageButton>
+                        </ItemTemplate>
+                        <HeaderStyle Width="1.5em" />
+                        <ItemStyle CssClass="center" />
+                    </asp:TemplateField>
+                    <asp:TemplateField ShowHeader="False">
+                        <ItemTemplate>
+                            <asp:ImageButton ID="ibtnExcluir" runat="server" CausesValidation="false" 
+                                CommandName="Excluir" AlternateText="Excluir"
+                                OnClientClick="if (!confirm('Tem certeza de que deseja excluir o registro selecionado?')) return false;"></asp:ImageButton>
+                        </ItemTemplate>
+                        <HeaderStyle Width="1.5em" />
+                        <ItemStyle CssClass="center" />
+                    </asp:TemplateField>
+<%			foreach(IColumn field in _workingTable.Columns)
+			{
+				if (field.IsInPrimaryKey) continue;
+				
+				string property = getPropertyName(field.Alias);
+				if (!field.IsInForeignKey) 
+				{
+%>					<asp:BoundField DataField="<%= property %>" HeaderText="<%= property %>"></asp:BoundField>
+<%				}
+			}
+%>				</Columns>
+                <EmptyDataTemplate>
+					Não existem registros cadastrados.
+                </EmptyDataTemplate>
+            </asp:GridView>
+			<asp:ObjectDataSource ID="ods<%= _tableName %>" runat="server" EnablePaging="True" 
+				TypeName="<%= _namespaceUserControls %>.<%= _tableName %>DataSource" SelectMethod="Select" SelectCountMethod="SelectCount"></asp:ObjectDataSource>
+            <div class="controles">
+                <asp:Button ID="btnNovo" runat="server" Text="Cadastrar" onclick="btnNovo_Click" />
+            </div>
+        </div>
+        <div id="dvForm" runat="server">
+            <asp:HiddenField ID="hidIdObj" runat="server" />
+            <fieldset class="form noBottomBorder" >
+                <legend>Dados do turno</legend>
+				<div class="notes">
+					<h4>Informações</h4>
+					<p>
+						Todos os campos marcados com * são de 
+						preenchimeto obrigatório.
+					</p>
+				</div>
+<%			foreach(IColumn field in _workingTable.Columns)
+			{
+				if (field.IsInPrimaryKey) continue;
+				
+				string property = getPropertyName(field.Alias);
+				if (field.IsInForeignKey) 
+				{
+%>				<div>
+					<label for="drp<%= property %>"><%= property %>:</label>
+					<asp:DropDownList ID="drp<%= property %>" runat="server">
+					</asp:DropDownList>
+<%					if (!field.IsNullable)
+					{
+%>					<span class="obrigatorio">*</span>
+					<p>
+						<asp:RequiredFieldValidator ID="rfv<%= property %>" runat="server" CssClass="validacao"
+							ControlToValidate="drp<%= property %>" ErrorMessage="Campo <%= property %> obrigatório." 
+							ValidationGroup="Cadastro" Display="Dynamic"></asp:RequiredFieldValidator>
+					</p>
+<%					}
+%>				</div>
+<%				}
+				else
+				{
+%>				<div>
+					<label for="txt<%= property %>"><%= property %>:</label>
+					<asp:TextBox ID="txt<%= property %>" runat="server"<%= (field.LanguageType == "string" ? " MaxLength=\"" + field.CharacterMaxLength.ToString() + "\"" : "" ) %>></asp:TextBox>
+<%					if (!field.IsNullable)
+					{
+%>					<span class="obrigatorio">*</span>
+					<p>
+						<asp:RequiredFieldValidator ID="rfv<%= property %>" runat="server" CssClass="validacao"
+							ControlToValidate="txt<%= property %>" ErrorMessage="Campo <%= property %> obrigatório." 
+							ValidationGroup="Cadastro" Display="Dynamic"></asp:RequiredFieldValidator>
+					</p>
+<%					}
+%>				</div>
+<%				}
+			}
+%>			</fieldset>
+            <div id="dvBotoes">
+                <asp:Button ID="btnCadastrar" runat="server" Text="Cadastrar" 
+                    ValidationGroup="Cadastro" onclick="btnCadastrar_Click" />
+                <asp:Button ID="btnSalvar" runat="server" Text="Salvar" 
+                    ValidationGroup="Cadastro" onclick="btnSalvar_Click" />
+                <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" 
+                    onclick="btnCancelar_Click" />
+            </div>
+        </div>
+    </ContentTemplate>
+</asp:UpdatePanel><%
+		output.save(System.IO.Path.Combine(_exportPathWebForms + @"\", fileName), false);
+		
+		output.clear();
+	}
+	
+	private void generateDesigner(ITable _workingTable) 
+	{
+		string fileName = "Uc" + _tableName + ".ascx.designer.cs";
+%>//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//     Runtime Version:2.0.50727.4927
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+namespace <%= _namespaceUserControls %> {
+    
+    
+    public partial class Uc<%= _tableName %> {
+        
+        /// <summary>
+        /// upDados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upDados;
+        
+        /// <summary>
+        /// dvGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvGrid;
+        
+        /// <summary>
+        /// dvForm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvForm;
+              
+        /// <summary>
+        /// grvDados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grvDados;
+        
+        /// <summary>
+        /// btnNovo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNovo;
+        
+        /// <summary>
+        /// btnCadastrar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCadastrar;
+        
+        /// <summary>
+        /// btnSalvar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSalvar;
+        
+        /// <summary>
+        /// btnCancelar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancelar;
+		        
+        /// <summary>
+        /// hidIdObj control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidIdObj;
+		
+        /// <summary>
+        /// ods<%= _tableName %> control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource ods<%= _tableName %>;		
+<%		foreach(IColumn field in _workingTable.Columns)
+		{
+			if (field.IsInPrimaryKey) continue;
+				
+			string property = getPropertyName(field.Alias);
+			if (field.IsInForeignKey) 
+			{
+%>		/// <summary>
+        /// drp<%= property %> control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drp<%= property %>;
+<%			}
+			else
+			{
+%>		
+		/// <summary>
+        /// txt<%= property %> control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt<%= property %>;
+<%			}
+			
+			if (!field.IsNullable)
+			{
+%>		
+		/// <summary>
+        /// rfv<%= property %> control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv<%= property %>;
+<%			}
+		}
+%>	}
+}<%
+		
+		output.save(System.IO.Path.Combine(_exportPathWebForms + @"\", fileName), false);
+		
+		output.clear();
+	}
+	
+	private void generateCodeBehind(ITable _workingTable)
+	{
+		string fileName = "Uc" + _tableName + ".ascx.cs";
+		string primaryKeyType = getFieldType(_workingTable.PrimaryKeys[0], false);	
+		string bizName = getBizName(_tableName);
+		string daoName = getDaoName(_tableName);
+		
+		printLicense();%>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using <%= _namespaceEntities %>;
+using <%= _namespaceDao %>;
+using <%= _namespaceBiz %>;
+using Intentor.Utilities;
+using Intentor.Yamapper;
+
+namespace <%= _namespaceUserControls %>
+{
+    public partial class Uc<%= _tableName %> : System.Web.UI.UserControl
+    {
+        #region Handlers
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!Page.IsPostBack)
+            {<%
+			if (hasForeignKeys(_workingTable))
+			{%>
+				this.LoadDropDownLists();<%
+			}%>
+                this.LoadAll();
+            }
+        }
+
+        protected void btnNovo_Click(object sender, EventArgs e)
+        {
+            this.Clear();
+            this.ShowForm(true);
+        }
+
+        protected void btnCadastrar_Click(object sender, EventArgs e)
+        {
+            this.Create();
+        }
+
+        protected void btnSalvar_Click(object sender, EventArgs e)
+        {
+            this.Update();
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.LoadAll();
+        }
+
+        #region GridView
+
+        protected void grvDados_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+				((ImageButton)e.Row.FindControl("ibtnVer")).CommandArgument =
+					((ImageButton)e.Row.FindControl("ibtnExcluir")).CommandArgument = e.Row.RowIndex.ToString();
+            }
+        }
+
+        protected void grvDados_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            var id = this.grvDados.DataKeys[e.CommandArgument.Parse<short>()].Value.Parse<<%= primaryKeyType %>>();
+
+            switch (e.CommandName)
+            {
+                case "Ver":
+                    {
+                        this.LoadData(id);
+                    }
+                    break;
+
+                case "Excluir":
+                    {
+                        try
+                        {
+							var biz = new <%= bizName %>(new <%= daoName %>());
+							biz.Delete(id);
+
+                            ClientHelper.MessageBoxOverAjax("Registro excluído com sucesso.");
+
+                            this.LoadAll();
+                        }
+                        catch (Exception ex)
+                        {
+							if (ex.Message.IndexOf("DELETE statement conflicted") > 0)
+                            {
+                                ClientHelper.MessageBoxOverAjax("O registro atual não pode ser excluído por estar relacionado a dados no sistema.\\nVerifique os relacionamentos e tente novamente.");
+                            }
+                            else
+                            {
+                                ClientHelper.MessageBoxOverAjax("Não foi possível excluir o registro.\\nPor favor tente novamente.");
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Métodos
+
+        private void ShowGrid()
+        {
+            this.dvGrid.Visible = true;
+            this.dvForm.Visible = false;<%
+			if (hasForeignKeys(_workingTable))
+			{%>
+			
+			this.LoadDropDownLists();<%
+			}%>
+        }
+
+        private void ShowForm(bool forCreation)
+        {
+            this.dvGrid.Visible = false;
+            this.dvForm.Visible = true;
+
+            this.btnCadastrar.Visible = forCreation;
+            this.btnSalvar.Visible = !forCreation;
+        }
+<% 			if (hasForeignKeys(_workingTable)) 
+			{%>
+        private void LoadDropDownLists()
+        {<% 
+				foreach (IForeignKey fk in _workingTable.ForeignKeys)
+				{			
+					foreach (IColumn field in fk.ForeignColumns) 
+					{
+						if (field.IsInPrimaryKey) continue;					
+					
+						string controlName = "drp" + getPropertyName(field.Alias);
+						ITable fkTable = fk.ForeignTable;
+						string fkTableName = getTableName(fkTable.Alias);
+						string fkBizName = getBizName(fkTableName);
+						string fkDaoName = getDaoName(fkTableName);
+						string pkAcessorName = getPropertyName(fkTable.PrimaryKeys[0].Alias);
+%>
+			this.<%= controlName %>.Fill<<%= fkTableName %>>(
+				(new <%= fkBizName %>(new <%= fkDaoName %>())).GetAll()
+				, "<%= pkAcessorName %>"
+				, "<%= pkAcessorName %>"
+				, true);
+<%					} 
+				}
+%>        }
+<%			}%>
+        private <%= _tableName %> GetEntity()
+        {
+            <%= _tableName %> obj;
+			var biz = new <%= bizName %>(new <%= daoName %>());
+            var id = (this.hidIdObj.Value.IsNullOrEmpty() ? (<%= primaryKeyType %>)-1 : this.hidIdObj.Value.Parse<<%= primaryKeyType %>>());
+
+            if (id > 0) obj = biz.GetById(id);
+            else obj = new <%= _tableName %>();
+<%			foreach(IColumn field in _workingTable.Columns)
+			{
+				if (field.IsInPrimaryKey) continue;
+				
+%>			obj.<%= getPropertyName(field.Alias) %> = this.<%= controlCodeForGet(field) %>;
+<%			}%>
+            //Preenchimento de dados específicos de cadastro.
+            if (id < 0)
+			{
+				
+			}
+		
+			return obj;
+        }
+
+        private void LoadAll()
+        {
+            this.ShowGrid();
+            this.grvDados.DataBind();
+        }
+
+        private void LoadData(<%= primaryKeyType %> id)
+        {
+            this.Clear();
+
+			var biz = new <%= bizName %>(new <%= daoName %>());
+            var obj = biz .GetById(id);
+
+            this.hidIdObj.Value = id.ToString();<%
+			foreach(IColumn field in _workingTable.Columns)
+			{
+				if (field.IsInPrimaryKey) continue;
+				
+				string property = getPropertyName(field.Alias);
+
+				if (field.IsInForeignKey) 
+				{%>
+			this.drp<%= property %>.SelectItemByValue(obj.<%= property %>.ToString());<%
+				}
+				else
+				{%>
+			this.txt<%= property %>.Text = obj.<%= property %>.ToString();<%
+				}
+			}
+%>
+
+            this.ShowForm(false);
+        }
+
+        private void Create()
+        {
+            try
+            {
+				var biz = new <%= bizName %>(new <%= daoName %>());
+				
+				/*
+                //Primeiramente verifica se o registro já existe.
+                if (biz.Exists(this.txt.Text))
+                {
+                    ClientHelper.MessageBoxOverAjax("Registro já existente.\\nPor favor, escolha outro nome.");
+                }
+                else
+                {
+				}
+				*/
+				
+				biz.Create(this.GetEntity());
+
+				ClientHelper.MessageBoxOverAjax("Registro cadastrado com sucesso");
+
+				this.LoadAll();
+            }
+            catch (Exception ex)
+            {
+                ClientHelper.MessageBoxOverAjax("Não foi possível realizar o cadastro do registro.\\nPor favor tente novamente.");
+            }           
+        }
+
+        private void Update()
+        {
+            try
+            {
+				var biz = new <%= bizName %>(new <%= daoName %>());
+                biz.Update(this.GetEntity());
+
+                ClientHelper.MessageBoxOverAjax("Registro atualizado com sucesso");
+
+                this.LoadAll();
+            }
+            catch (Exception ex)
+            {
+                ClientHelper.MessageBoxOverAjax("Não foi possível realizar a atualização do registro.\\nPor favor tente novamente.");
+            }  
+        }
+
+        private void Clear()
+        {
+			this.hidIdObj.Value = String.Empty;
+<%			foreach(IColumn field in _workingTable.Columns)
+			{
+				if (field.IsInPrimaryKey) continue;
+				
+				string property = getPropertyName(field.Alias);
+				if (field.IsInForeignKey) 
+				{
+%>			this.drp<%= property %>.SelectedIndex = 0;
+<%				}
+				else
+				{
+%>			this.txt<%= property %>.Text = String.Empty;
+<%				}
+			}
+%>        }
+
+        #endregion
+    }
+	
+	#region ObjectDataSource
+
+    /// <summary>
+    /// ObjectDataSource da página.
+    /// </summary>
+    public class <%= _tableName %>DataSource
+    {
+        private <%= bizName %> _biz = new <%= bizName %>(new <%= daoName %>());
+
+        public int SelectCount()
+        {
+            return _biz.Count();
+        }
+
+        public List<<%= _tableName %>> Select(int maximumRows, int startRowIndex)
+        {
+            return _biz.GetByCriteria(Criteria.Create().Offset(startRowIndex).Limit(maximumRows)).BindTo<<%= _tableName %>>();
+        }
+    }
+
+    #endregion
+}<%
+		output.save(System.IO.Path.Combine(_exportPathWebForms + @"\", fileName), false);
+		
+		output.clear();
+	}
+	
+	private bool hasForeignKeys(ITable table)
+	{
+		bool has = false;
+		
+		foreach (IForeignKey fk in table.ForeignKeys)
+		{			
+			foreach (IColumn field in fk.ForeignColumns) 
+			{
+				if (field.IsInPrimaryKey) continue;	
+				else 
+				{
+					has = true;
+					break;
+				}
+			}
+		}		
+		
+		return has;
+	}
+	
+	private string controlCodeForGet(IColumn field)
+	{
+		string property = getPropertyName(field.Alias);
+		string control;
+		
+		if (field.IsInForeignKey) 
+		{
+			control = "drp" + property;
+			
+			if (field.LanguageType == "string")
+			{
+				control += ".SelectedValue";
+			}
+			else
+			{
+				if (field.IsNullable) control += "(this." + control + ".SelectedIndex > 0 ? (" + field.LanguageType + "?)this." + control + ".SelectedValue.Parse<" + field.LanguageType + ">() : null)";
+				else control += ".SelectedValue.Parse<" + field.LanguageType + ">()";
+			}
+		}
+		else
+		{
+			control = "txt" + property + ".Text";
+				
+			if (field.LanguageType != "string")
+			{
+				if (field.IsNullable) control += ".GetNullableObjectFor<" + field.LanguageType + ">()";
+				else control += ".Parse<" + field.LanguageType + ">()";
+			}
+		}
+		
+		return control;
+	}
+	
+//==FIM DOS MÉTODOS DE generateWebForm()==========================================
+}
+%>
+##|BODY_END

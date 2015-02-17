@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<Project DefaultTargets="GenerateRelease" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	
+	<!--
+		Build base responsável pela geração de versões de release do componente Intentor.Yamapper.
+	-->
+	
+	<Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+		
+	<!--=CONFIGURAÇÕES===========================================================================-->
+	
+	<!--Configuraões do builder.-->
+	<PropertyGroup>
+		<SourceFolder>src\Intentor.Yamapper</SourceFolder>
+		<ReleaseFolder>bin</ReleaseFolder>
+		<Version>12.6.18.1905</Version>
+		<GenerateHelpFile>true</GenerateHelpFile>
+	</PropertyGroup>
+	
+	<!--=============================================================================================-->
+		
+	<!--Arquivos a serem utilizados na geração do release-->
+	<ItemGroup>
+		<DefaultBinFiles Include="$(SourceFolder)\bin\Release\Intentor.Yamapper.dll
+			;$(SourceFolder)\bin\Release\Intentor.Yamapper.pdb
+			;$(SourceFolder)\bin\Release\Intentor.Yamapper.xml" />
+		<LibBinFiles Include="$(SourceFolder)\bin\Release\*.dll
+			;$(SourceFolder)\bin\Release\*.pdb
+			;$(SourceFolder)\bin\Release\*.xml"
+			Exclude="$(SourceFolder)\bin\Release\Intentor.Yamapper*" />
+	</ItemGroup>
+	
+	<!--Limpeza das pastas aonde o release será armazenado.-->
+	<Target Name="CleanReleaseFolder">
+		<Message Text="Criação do diretório $(ReleaseFolder)" />
+		<RemoveDir Directories="$(ReleaseFolder)\$(Version)" Condition="Exists('$(ReleaseFolder)\$(Version)\')" />	
+		<MakeDir Directories="$(ReleaseFolder)\$(Version)" />
+		<MakeDir Directories="$(ReleaseFolder)\$(Version)\dotNet35" />
+		<MakeDir Directories="$(ReleaseFolder)\$(Version)\dotNet35\lib" />
+		<MakeDir Directories="$(ReleaseFolder)\$(Version)\dotNet45" />
+		<MakeDir Directories="$(ReleaseFolder)\$(Version)\dotNet45\lib" />
+	</Target>	
+	
+	<!--Definições de versão.-->
+	<Target Name="Version" DependsOnTargets="CleanReleaseFolder">
+		<Message Text="Gerando arquivo de versão." />		
+		<Time Format="yyyy">
+			<Output TaskParameter="FormattedTime" PropertyName="Year" />
+		</Time>
+		<Message Text="Versao: $(Version)" />
+		<AssemblyInfo CodeLanguage="CS" 
+			OutputFile="$(SourceFolder)\Properties\AssemblyInfo.cs"
+			AssemblyTitle="Intentor.Yamapper"
+			AssemblyDescription="Yet Another (.Net Based Database) Mapper."
+			AssemblyCompany="Intentor"
+			AssemblyProduct="Intentor.Yamapper"
+			AssemblyCopyright="Copyright © 2009-$(Year) André Intentor Martins"     
+			ComVisible="false"
+			CLSCompliant="true"
+			Guid="eb3367a2-387b-4549-8434-8284130023fa"
+			AssemblyVersion="$(Version)"
+			AssemblyFileVersion="$(Version)" />
+		<FileUpdate Files="Yamapper.shfbproj"
+			Regex="Yamapper \d+.\d+.\d+.\d+"
+			ReplacementText="Yamapper $(Version)" />
+	</Target>
+	
+	<!--Realização da compilação da aplicação para release (.NET 3.5).-->
+	<Target Name="Compile35" DependsOnTargets="Version">
+		<Message Text="Compilando versão." />
+		<MSBuild Projects="$(SourceFolder)\Intentor.Yamapper 3.5.csproj"
+			Targets="Clean;Build"
+			Properties="Configuration=Release;OutputPath=bin\Release\" />
+		<!--Binários do Yamapper.-->
+		<Copy SourceFiles="@(DefaultBinFiles)" 
+			DestinationFolder="$(ReleaseFolder)\$(Version)\dotNet35" />
+		<!--Binários de dependências.-->
+		<Copy SourceFiles="@(LibBinFiles)" 
+			DestinationFolder="$(ReleaseFolder)\$(Version)\dotNet35\lib" />
+	</Target>
+	
+	<!--Realização da compilação da aplicação para release (.NET 4.5).-->
+	<Target Name="Compile45" DependsOnTargets="Version">
+		<Message Text="Compilando versão." />
+		<MSBuild Projects="$(SourceFolder)\Intentor.Yamapper 4.5.csproj"
+			Targets="Clean;Build"
+			Properties="Configuration=Release;OutputPath=bin\Release\" />
+		<!--Binários do Yamapper.-->
+		<Copy SourceFiles="@(DefaultBinFiles)" 
+			DestinationFolder="$(ReleaseFolder)\$(Version)\dotNet45" />
+		<!--Binários de dependências.-->
+		<Copy SourceFiles="@(LibBinFiles)" 
+			DestinationFolder="$(ReleaseFolder)\$(Version)\dotNet45\lib" />
+	</Target>	
+	
+	<!--Criação de arquivo ZIP de versão.-->
+	<Target Name="CreateBinZip">
+		<ItemGroup>
+			<ZipFilesBin Include="$(ReleaseFolder)\$(Version)\**\*.dll
+				;$(ReleaseFolder)\$(Version)\**\*.pdb
+				;$(ReleaseFolder)\$(Version)\**\*.xml
+				;$(ReleaseFolder)\$(Version)\MembershipProvider\MembershipUserInfo.cmf
+				;$(ReleaseFolder)\$(Version)\MembershipProvider\MembershipUserInfo.sql
+				;$(ReleaseFolder)\$(Version)\Intentor.Yamapper Class Generator.csgen
+				;$(ReleaseFolder)\$(Version)\gen.config
+				;changelog.txt
+				;LGPL-LICENSE.txt
+				;readme.txt" />
+		</ItemGroup>
+		<Message Text="Gerando arquivo ZIP de versão." />
+		<!--Script do MyGeneration.-->
+		<Copy SourceFiles="tools\My Generation\Intentor.Yamapper Class Generator.csgen" 
+			DestinationFolder="$(ReleaseFolder)\$(Version)" />
+		<Copy SourceFiles="tools\My Generation\gen.config" 
+			DestinationFolder="$(ReleaseFolder)\$(Version)" />
+		<!--Arquivos YamapperMembershipProvider.-->
+		<Copy SourceFiles="tools\MembershipProvider\MembershipUserInfo.cmf
+				;tools\MembershipProvider\MembershipUserInfo.sql"
+			DestinationFolder="$(ReleaseFolder)\$(Version)\MembershipProvider" />	
+		<Zip Files="@(ZipFilesBin)"
+			WorkingDirectory="$(ReleaseFolder)\$(Version)"
+			ZipFileName="$(ReleaseFolder)\$(Version)\yamapper-$(Version)-bin.zip" />
+	</Target>
+	
+	<!--Criação de arquivo ZIP de documentação.-->
+	<Target Name="CreateDocZip" Condition="$(GenerateHelpFile) == 'true'">
+		<Message Text="Gerando arquivo ZIP de documentação." />
+		<Exec Command="C:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild.exe Yamapper.shfbproj" />
+		<Zip Files="doc\Yamapper.chm"
+			WorkingDirectory="doc"
+			ZipFileName="$(ReleaseFolder)\$(Version)\yamapper-$(Version)-doc.zip" />
+		<Delete Files="doc\LastBuild.log" />
+	</Target>
+
+	<!--Geração  do release.-->
+	<Target Name="GenerateRelease">
+		<CallTarget Targets="CleanReleaseFolder" />
+		<CallTarget Targets="Version" />
+		<CallTarget Targets="Compile35" />
+		<CallTarget Targets="Compile45" />
+		<CallTarget Targets="CreateBinZip" />
+		<CallTarget Targets="CreateDocZip" />
+		<Message Text="Geração de release concluída." />
+	</Target>
+	
+</Project>

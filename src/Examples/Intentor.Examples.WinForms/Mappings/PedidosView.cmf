@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<yamapper-mapping xmlns="urn:yamapper-mapping-10.8.23.0">
+	<class table="vwPedidos" name="Intentor.Examples.Model.Core.Views.PedidosView, Intentor.Examples.Model" connectionName="Intentor" isView="true">
+		<property name="NomeCliente" column="NomeCliente" />
+		<property name="Produto" column="Produto" />	
+	</class>
+</yamapper-mapping>
