@@ -181,3 +181,10 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+
+# Other
+
+.DS_Store
+Thumbs.db
+*.bak
+*.docx#
