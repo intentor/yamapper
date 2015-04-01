@@ -2,7 +2,7 @@
 
 Lightweight object-relational mapper for .Net.
 
-Inspired by [NHibernate](http://nhibernate.info/), [mybatis (antigo ibatis.net)](http://mybatis.org/) and [Subsonic](http://subsonicproject.com/), allows mapping of tables and views through .Net attributes or XML configuration files, having great performance and native compatibility with SQL Server, Oracle, MySQL and PostgreSQL databases.
+Inspired by [NHibernate](http://nhibernate.info/), [mybatis (former ibatis.net)](http://mybatis.org/) and [Subsonic](http://subsonicproject.com/), allows mapping of tables and views through .Net attributes or XML configuration files, having great performance and native compatibility with SQL Server, Oracle, MySQL and PostgreSQL databases.
 
 *Yamapper* uses [MyGeneration](http://sourceforge.net/projects/mygeneration/) for complete code generation, from entities to views, based on the [recommended architecture](http://intentor.com.br/yamapper-conceitos/).
 
